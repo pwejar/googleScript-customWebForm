@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <?!=include("home-css");?>
+  </head>
+  <body>
+     <div id="container_div">
+        <div id="header_div">
+            <div id="image_div">
+                <img id="logo_id" src="https://drive.google.com/uc?export=view&id=1nlQZm0KWaBSZLz5Ec6NPN3oPsrjtgXF0" width="120px";>
+                
+            </div>
+            <div id="title_div">
+                 <p><b>Euc Data entry</b></p>
+            </div>
+            <div id="submit_div">
+                <button id="clipping_btn" type="button" class="submit_btn">Submit</button>
+                <button id="placing_btn" type="button" class="submit_btn">Submit</button>
+                <button id="sorting_btn" type="button" class="submit_btn">Submit</button>
+                <button id="cleaning_btn" type="button" class="submit_btn">Submit</button>
+                <button id="stock_btn" type="button" class="submit_btn">Submit</button>
+            </div>
+            <div id="cancel_div">
+                <button id="clipping1_btn" type="button" class="cancel_btn">Cancel</button>
+                <button id="placing1_btn" type="button" class="cancel_btn">Cancel</button>
+                <button id="sorting1_btn" type="button" class="cancel_btn">Cancel</button>
+                <button id="cleaning1_btn" type="button" class="cancel_btn">Cancel</button>
+                <button id="stock1_btn" type="button" class="cancel_btn">Cancel</button>
+            </div>
+        </div>
+        <div id="clipping_head_div">
+              <lebel style="padding-left:20px">Supervisor:</lebel><select id="clipping_supervisor_id">
+	            <? for(var i=0;i<supervisor_list.length;i++){?>
+	            <option><?=supervisor_list[i];?></option>
+	            <?}?>
+	            </select>
+                
+             <input type="text" id="clipping_name_id"name="firstname" value="-----------------" style="padding-left:10px border:none; background:none;">
+             <lebel style="padding-left:20px">Pot Type: </lebel><input type="text" value="" style="padding-left:20px" id="clipping_batch_id" >
+              <lebel style="padding-left:20px";>Date:</lebel><input type="text" id="clipping_date_id" readonly='true'>
+        </div>
+        <div id="placing_head_div">
+           <lebel style="padding-left:10px";>Placing Date:</lebel><input type="text" id="placing_date_id" readonly='true'>
+            <lebel style="padding-left:10px">Supervisor:</lebel><select id="placing_supervisor_id">
+	            <? for(var i=0;i<supervisor_list.length;i++){?>
+	            <option><?=supervisor_list[i];?></option>
+	            <?}?>
+	            </select>
+                
+             <input type="text" id="placing_name_id"name="firstname" value="-----------------" style="padding-left:10px border:none; background:none;" readonly='true'>
+             <lebel style="padding-left:20px">Batch:</lebel><input type="text" value="" style="padding-left:20px" id="placing_batch_id" readonly='true'>
+             <lebel style="width:15px";>Total Placers:</lebel><input type="text" id="placers_id" width="2px">
+        </div>
+        <div id="sorting_head_div">
+           <lebel style="padding-left:10px";>Sorting Date:</lebel><input type="text" id="sorting_date_id" readonly='true'>
+            <lebel style="padding-left:10px">Supervisor:</lebel><select id="sorting_supervisor_id">
+	            <? for(var i=0;i<supervisor_list.length;i++){?>
+	            <option><?=supervisor_list[i];?></option>
+	            <?}?>
+	            </select>
+                
+             <input type="text" id="sorting_name_id"name="firstname" value="-----------------" style="padding-left:10px border:none; background:none;" readonly='true'>
+             <lebel style="padding-left:20px">Batch:</lebel><select id="sorting_batch_id">
+	            <? for(var i=0;i<sorting_batch_list.length;i++){?>
+	            <option><?=sorting_batch_list[i];?></option>
+	            <?}?>
+	            </select>
+             <lebel style="width:15px";>Total Sorters:</lebel><input type="text" id="sorters_id" width="2px">
+        </div>
+        <div id="cleaning_head_div">
+            <div id="cleaning_head_div">
+            <lebel style="padding-left:15px";>Cleaning Date:</lebel><input type="text" id="cleaning_date_id" readonly='true'>
+            <lebel style="padding-left:15px">Manager:</lebel><select id="cleaning_supervisor_id">
+	            <? for(var i=0;i<supervisor_list.length;i++){?>
+	            <option><?=supervisor_list[i];?></option>
+	            <?}?>
+	            </select>
+                
+             <input type="text" id="cleaning_name_id"name="firstname" value="-----------------" style="padding-left:20px border:none; background:none;" readonly='true'>
+             <lebel style="width:15px padding-left:15px";>Total Cleaners:</lebel><input type="text" id="cleaners_id" width="2px">
+        </div>
+        </div>
+        <div id="stock_head_div">
+            <lebel style="padding-left:15px";>Stock Date:</lebel><input type="text" id="stock_date_id" readonly='true'>
+            <lebel style="padding-left:15px">Manager:</lebel><select id="stock_supervisor_id">
+	            <? for(var i=0;i<supervisor_list.length;i++){?>
+	            <option><?=supervisor_list[i];?></option>
+	            <?}?>
+	            </select>
+                
+             <input type="text" id="stock_name_id"name="firstname" value="-----------------" style="padding-left:20px border:none; background:none;" readonly='true'>
+             <lebel style="width:15px padding-left:15px";>Total Cleaners:</lebel><input type="text" id="cleaners1_id" width="2px">
+        </div>
+        <div id="main_body_div">
+        <div id="menu_div">
+             <button id="clipping2_btn" type="button" class="menu_btn">1. Potting</button>
+             <button id="placing2_btn" type="button" class="menu_btn">2. Placing</button>
+             <button id="sorting2_btn" type="button" class="menu_btn">3. Sorting</button>
+             <button id="cleaning2_btn" type="button" class="menu_btn">4. Cleaning</button>
+             <button id="stock2_btn" type="button" class="menu_btn">5. Stock</button>
+        </div>
+        <div id="body_div">
+              <div id="clipping_body">
+                <table id="clipping_table" border="1">
+                      <thead> 
+                         <tr>
+                           <th style="background:white; border:none;"> </th>
+                           <th>Casual Employee Name:</th>
+                           <th>No. of full crates</th>
+                           <th>cont of pots in<br>Partially full crate</th>
+                           
+                         </tr>
+                       </thead>
+                       <tbody id="clipping_tbody">
+                          <? for(var i=1;i<31;i++)
+                            {
+                            ?><tr id="row<?=[i];?>">
+                               <td><?=[i];?></td>
+                               <td><input id="a<?=[i];?>"type="text" style="width:100%;  border:none; background:none;"></td>
+                               <td><input id="b<?=[i];?>"type="number" style="width:100%;  border:none; background:none;" class="clipping_count_class"></td>
+                               <td><input id="c<?=[i];?>"type="number" style="width:100%;  border:none; background:none;" class="partially_full_class"></td>
+                              
+                            </tr><?}?>
+                       </tbody>
+                  </table>
+              </div>
+              <div id="placing_body">
+                <table id="placing_table" border="1">
+                      <thead> 
+                      <tr>
+                           <th style="background:white; border:none;"> </th>
+                           <th rowspan="3">Bay</th>
+                           <th rowspan="3">Tunnel N0.</th>
+                           <th rowspan="3">Cutting Type</th>
+                           <th rowspan="3">GC</th>
+                           <th colspan="3" align="center" style="border: 2px solid black">No. of pots Removed</th>
+                           
+                         </tr>
+                         <tr>
+                           <th style="background:white; border:none;"> </th>
+                           
+                           <th rowspan="2" style="border-left: 2px solid black" >Full crates</th>
+                           <th colspan="2" style="border: 2px solid black">Pots in incomplete crate</th>
+                           
+                           
+                         </tr>
+                         <tr>
+                           <th style="background:white; border:none;"> </th>
+                           
+                           <th style="border: 2px solid black">Complete Rows</th>
+                           <th style="border: 2px solid black">Pots in incomplete row</th>
+                           
+                         </tr>
+                         <tr id="clipping_exaple_row">
+                           <th>Ex</th>
+                           <th>c</th>
+                           <th>15</th>
+                           <th>Macro</th>
+                           <th>15</th>
+                           <th style="border-left: 2px solid black">7</th>
+                           <th style="border-left: 2px solid black">15</th>
+                           <th style="border-left: 2px solid black">3</th>
+                           
+                           
+                         </tr>
+                       </thead>
+                       <tbody id="placing_tbody">
+                          <? for(var i=1;i<21;i++)
+                            {
+                            ?><tr id="rowp<?=[i];?>">
+                               <td><?=[i];?></td>
+                                <td><select id="ap<?=[i];?>" class="cutting_type" style="width:60px;  border:none; background:none;" ><option></option><option>A</option><option>B</option><option>C</option>
+                                   <option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>Z</option></select></td>
+                               <td style="width:100px;"><input id="bp<?=[i];?>"type="number" style="width:100px;  border:none; background:none;" class="tunnel_class"></td>
+                                <td><select id="cp<?=[i];?>" class="cutting_type" style="width:60px;  border:none; background:none;" ><option></option><option>Micro</option><option>Macro</option></select></td>
+                               <td ><select id="dp<?=[i];?>" style="width:55px;  border:none; background:none;" ><option></option><option>15</option><option>167</option><option>581</option><option>584</option><option>785</option></select></td>
+                               <td style="border-left: 2px solid black"><input id="ep<?=[i];?>"type="text" style="width:100%;  border:none; background:none;" class="fullcrates_class"></td>
+                               <td style="border-left: 2px solid black"><input id="fp<?=[i];?>"type="number" style="width:100%;  border:none; background:none;" class="completerows_class"></td>
+                               <td style="border-left: 2px solid black"><input id="gp<?=[i];?>" type="number" style="width:100%;  border:none; background:none;" class="incompleterows_class"></td>
+                               
+                               
+                               
+                            </tr><?}?>
+                       </tbody>
+                  </table>
+              </div>
+              <div id="sorting_body">
+                  <table id="sorting_table" border="1">
+                      <thead> 
+                      <tr>
+                           <th style="background:white; border:none;"> </th>
+                           <th rowspan="3">Bay</th>
+                           <th rowspan="3">Tunnel N0.</th>
+                           <th rowspan="3">Cutting Type</th>
+                           <th rowspan="3">GC</th>
+                           <th colspan="3" align="center" style="border: 2px solid black">No. of live seedlings</th>
+                           
+                         </tr>
+                         <tr>
+                           <th style="background:white; border:none;"> </th>
+                           
+                           <th rowspan="2" style="border-left: 2px solid black" >Full crates</th>
+                           <th colspan="2" style="border: 2px solid black">Pots in incomplete crate</th>
+                           
+                           
+                         </tr>
+                         <tr>
+                           <th style="background:white; border:none;"> </th>
+                           
+                           <th style="border: 2px solid black">Complete Rows</th>
+                           <th style="border: 2px solid black">Pots in incomplete row</th>
+                           
+                         </tr>
+                         <tr id="clipping_exaple_row">
+                           <th>Ex</th>
+                           <th>c</th>
+                           <th>15</th>
+                           <th>Macro</th>
+                           <th>15</th>
+                           <th style="border-left: 2px solid black">7</th>
+                           <th style="border-left: 2px solid black">15</th>
+                           <th style="border-left: 2px solid black">3</th>
+                           
+                           
+                         </tr>
+                       </thead>
+                       <tbody id="sorting_tbody">
+                          <? for(var i=1;i<21;i++)
+                            {
+                            ?><tr id="rows<?=[i];?>">
+                               <td><?=[i];?></td>
+                                <td><select id="as<?=[i];?>" class="cutting_type" style="width:60px;  border:none; background:none;" ><option></option><option>A</option><option>B</option><option>C</option>
+                                   <option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>I</option><option>Z</option></select></td>
+                               <td style="width:100px;"><input id="bs<?=[i];?>"type="number" style="width:100px;  border:none; background:none;" class="tunnel_class"></td>
+                                <td><select id="cs<?=[i];?>" class="cutting_type" style="width:60px;  border:none; background:none;" ><option></option><option>Micro</option><option>Macro</option></select></td>
+                               <td ><select id="ds<?=[i];?>" style="width:55px;  border:none; background:none;" ><option></option><option>15</option><option>167</option><option>581</option><option>584</option><option>785</option></select></td>
+                               <td style="border-left: 2px solid black"><input id="es<?=[i];?>"type="text" style="width:100%;  border:none; background:none;" class="fullcrates_class"></td>
+                               <td style="border-left: 2px solid black"><input id="fs<?=[i];?>"type="number" style="width:100%;  border:none; background:none;" class="completerows_class"></td>
+                               <td style="border-left: 2px solid black"><input id="gs<?=[i];?>" type="number" style="width:100%;  border:none; background:none;" class="incompleterows_class"></td>
+                               
+                               
+                               
+                            </tr><?}?>
+                       </tbody>
+                  </table>
+              </div>
+              <div id="cleaning_body">
+                        <table id="cleaning_table" border="1">
+                      <thead> 
+                      <tr>
+                           <th style="background:white; border:none;"> </th>
+                           <th rowspan="2">Block</th>
+                           <th rowspan="2">Bed</th>
+                           <th rowspan="2">Batch</th>
+                           <th rowspan="2">Cutting Type</th>
+                           <th rowspan="2">GC</th>
+                           <th colspan="2" align="center" style="border: 2px solid black">No. of live seedlings</th>
+                           
+                         </tr>
+                         
+                         <tr>
+                           <th style="background:white; border:none;"> </th>
+                           
+                           <th style="border: 2px solid black">No. of spaces </th>
+                           <th style="border: 2px solid black">incomplete space Seedling count</th>
+                           
+                         </tr>
+                         <tr id="clipping_exaple_row">
+                           <th>Ex</th>
+                           <th>c</th>
+                           <th>15</th>
+                           <th>LR2020/07/0019/P</th>
+                           <th>Micro</th>
+                           <th>15</th>
+                           <th style="border-left: 2px solid black">15</th>
+                           <th style="border-left: 2px solid black">3</th>
+                           
+                           
+                         </tr>
+                       </thead>
+                       <tbody id="cleaning_tbody">
+                          <? for(var i=1;i<21;i++)
+                            {
+                            ?><tr id="rowk<?=[i];?>">
+                               <td><?=[i];?></td>
+                                <td><select id="ak<?=[i];?>" class="cutting_type" style="width:60px;  border:none; background:none;" ><option></option><option>A</option><option>B</option><option>C</option>
+                                   <option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>Z</option></select></td>
+                               <td style="width:100px;"><input id="bk<?=[i];?>"type="number" style="width:100px;  border:none; background:none;" class="bed_class"></td>
+                               <td><select id="ck<?=[i];?>">
+                                       <? for(var k=0;k<sorting_batch_list.length;k++){?>
+                                       <option><?=sorting_batch_list[k];?></option>
+                                       <?}?>
+                                       </select></td>
+                                <td><select id="dk<?=[i];?>" class="cutting_type" style="width:60px;  border:none; background:none;" ><option></option><option>Micro</option><option>Macro</option></select></td>
+                               <td ><select id="ek<?=[i];?>" style="width:55px;  border:none; background:none;" ><option></option><option>15</option><option>167</option><option>581</option><option>584</option><option>785</option></select></td>
+                               <td style="border-left: 2px solid black"><input id="fk<?=[i];?>"type="number" style="width:100%;  border:none; background:none;" class="spaces_class"></td>
+                               <td style="border-left: 2px solid black"><input id="gk<?=[i];?>" type="number" style="width:100%;  border:none; background:none;" class="inspaces_class"></td>
+                               
+                               
+                               
+                            </tr><?}?>
+                       </tbody>
+                  </table>
+                       
+              </div>
+              <div id="stock_body">
+                    <table id="stock_table" border="1">
+                      <thead> 
+                      <tr>
+                           <th style="background:white; border:none;"> </th>
+                           <th rowspan="2">Block</th>
+                           <th rowspan="2">Bed</th>
+                           <th rowspan="2">Batch</th>
+                           <th rowspan="2">Cutting Type</th>
+                           <th rowspan="2">GC</th>
+                           <th colspan="2" align="center" style="border: 2px solid black">No. of live seedlings</th>
+                           
+                         </tr>
+                         
+                         <tr>
+                           <th style="background:white; border:none;"> </th>
+                           
+                           <th style="border: 2px solid black">No. of spaces </th>
+                           <th style="border: 2px solid black">incomplete space Seedling count</th>
+                           
+                         </tr>
+                         <tr id="clipping_exaple_row">
+                           <th>Ex</th>
+                           <th>c</th>
+                           <th>15</th>
+                           <th>LR2020/07/0019/P</th>
+                           <th>Micro</th>
+                           <th>15</th>
+                           <th style="border-left: 2px solid black">15</th>
+                           <th style="border-left: 2px solid black">3</th>
+                           
+                           
+                         </tr>
+                       </thead>
+                       <tbody id="stock_tbody">
+                          <? for(var i=1;i<21;i++)
+                            {
+                            ?><tr id="rowz<?=[i];?>">
+                               <td><?=[i];?></td>
+                                <td><select id="az<?=[i];?>" class="cutting_type" style="width:60px;  border:none; background:none;" ><option></option><option>A</option><option>B</option><option>C</option>
+                                   <option>D</option><option>E</option><option>F</option><option>G</option><option>H</option><option>Z</option></select></td>
+                               <td style="width:100px;"><input id="bz<?=[i];?>"type="number" style="width:100px;  border:none; background:none;" class="bed_class"></td>
+                               <td><select id="cz<?=[i];?>">
+                                       <? for(var k=0;k<sorting_batch_list.length;k++){?>
+                                       <option><?=sorting_batch_list[k];?></option>
+                                       <?}?>
+                                       </select></td>
+                                <td><select id="dz<?=[i];?>" class="cutting_type" style="width:60px;  border:none; background:none;" ><option></option><option>Micro</option><option>Macro</option></select></td>
+                               <td ><select id="ez<?=[i];?>" style="width:55px;  border:none; background:none;" ><option></option><option>15</option><option>167</option><option>581</option><option>584</option><option>785</option></select></td>
+                               <td style="border-left: 2px solid black"><input id="fz<?=[i];?>"type="number" style="width:100%;  border:none; background:none;" class="spaces_class"></td>
+                               <td style="border-left: 2px solid black"><input id="gz<?=[i];?>" type="number" style="width:100%;  border:none; background:none;" class="inspaces_class"></td>
+                               
+                               
+                               
+                            </tr><?}?>
+                       </tbody>
+                  </table>
+              </div>
+        </div>
+        </div>
+        <div id="footer_div">
+           <center> <p> You are logged in as: <?=user;?><br><br>Euc Data entry &copy; LR2020<br>Daniel Kimaiga Oywecha</p></center>
+        </div>
+     </div>
+  </body>
+  <?!=include("home-js");?>
+</html>
+
+

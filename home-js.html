@@ -1,0 +1,3384 @@
+<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+
+<script>
+
+//______________________________________start of jq
+//***************************original hide buttons
+$("#clipping_btn").hide();
+$("#sorting_btn").hide();
+$("#cleaning_btn").hide();
+$("#stock_btn").hide();
+$("#clipping1_btn").hide();
+$("#sorting1_btn").hide();
+$("#cleaning1_btn").hide();
+$("#stock1_btn").hide();
+$('#placing2_btn').css('background-color','#8cff82');
+//*************************orignal hide headers div
+$("#clipping_head_div").hide();
+$("#sorting_head_div").hide();
+$("#cleaning_head_div").hide();
+$("#stock_head_div").hide();
+
+//*************************orignal hide body div
+$("#clipping_body").hide();
+$("#sorting_body").hide();
+$("#cleaning_body").hide();
+$("#stock_body").hide();
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$index match supervisor
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^clipping index match
+$('#clipping_supervisor_id').change(function() {
+    var value=$(this).val();
+    if(value!="Komaza ID"){
+    google.script.run.withSuccessHandler(function(value1){$("#clipping_name_id").val(value1);}).indexSup(value);
+       }else{
+    $("#clipping_name_id").val('-----------------');
+    }
+});
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^placing index match
+$('#placing_supervisor_id').change(function() {
+    var value=$(this).val();
+    if(value!="Komaza ID"){
+    google.script.run.withSuccessHandler(function(value1){$("#placing_name_id").val(value1);}).indexSup(value);
+       }else{
+    $("#placing_name_id").val('-----------------');
+    }
+ });
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^sorting index match
+$('#sorting_supervisor_id').change(function() {
+    var value=$(this).val();
+    if(value!="Komaza ID"){
+    google.script.run.withSuccessHandler(function(value1){$("#sorting_name_id").val(value1);}).indexSup(value);
+       }else{
+    $("#sorting_name_id").val('-----------------');
+    }
+ });
+ //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^stock index match
+$('#stock_supervisor_id').change(function() {
+    var value=$(this).val();
+    if(value!="Komaza ID"){
+    google.script.run.withSuccessHandler(function(value1){$("#stock_name_id").val(value1);}).indexSup(value);
+       }else{
+    $("#stock_name_id").val('-----------------');
+    }
+ });
+  //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^cleaning index match
+$('#cleaning_supervisor_id').change(function() {
+    var value=$(this).val();
+    if(value!="Komaza ID"){
+    google.script.run.withSuccessHandler(function(value1){$("#cleaning_name_id").val(value1);}).indexSup(value);
+       }else{
+    $("#cleaning_name_id").val('-----------------');
+    }
+ });
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$BATCH generator
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^placing
+$('#placing_date_id').change(function() {
+    var value=$(this).val();
+    var month=value.split("-", 2);
+    var vg="LR2020/"+month[1]+"/0019";
+    $("#placing_batch_id").val(vg);
+   
+});
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$date picker
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^clipping
+
+$( "#clipping_date_id" ).datepicker({maxDate: '0',minDate: -5,dateFormat:'dd-mm-yy'});
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^placing
+
+$( "#placing_date_id" ).datepicker({maxDate: '0',minDate: -5,dateFormat:'dd-mm-yy'});
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^sorting
+
+$( "#sorting_date_id" ).datepicker({maxDate: '0',minDate: -5,dateFormat:'dd-mm-yy'});
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^stock
+
+$( "#cleaning_date_id" ).datepicker({maxDate: '0',minDate: -5,dateFormat:'dd-mm-yy'});
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^stock
+
+$( "#stock_date_id" ).datepicker({maxDate: '0',minDate: -5,dateFormat:'dd-mm-yy'});
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$preventing invalid input 
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^clipping
+//------------------------------------------------------pot partiallly full clazs
+$('.partially_full_clazs').focusout(function()
+      {
+          var CheckZip = $(this).val();
+          var id = $(this).attr("id");
+          if(CheckZip.length!==1&&CheckZip!="")
+          {
+            $(this).val("");
+            alert("Error: Input data from 0-20")
+             $(this).focus();
+            //$(this).css('background-color','#ffcccc');
+           //alert(id);
+           //setTimeout(function(id) {$(id).css('background-color','inherit', {}, 1000)}, 1000);
+          // inherit
+          }
+      });
+ //------------------------------------------------------count clazs
+$('.clipping_count_clazs').focusout(function()
+      {
+          var CheckZip = $(this).val();
+          var id = $(this).attr("id");
+          if(CheckZip.length!==1&&CheckZip!="")
+          {
+            $(this).val("");
+            alert("Error: Input data from 0-9")
+             $(this).focus();
+            //$(this).css('background-color','#ffcccc');
+           //alert(id);
+           //setTimeout(function(id) {$(id).css('background-color','inherit', {}, 1000)}, 1000);
+          // inherit
+          }
+      });
+  //-----------------------------------------------------reminder clazs
+  $('.clipping_remainder_clazs').focusout(function()
+      {
+          var CheckZip = $(this).val();
+          var id = $(this).attr("id");
+          if(CheckZip.length!==1&&CheckZip!=""&&CheckZip.length!==2)
+          {
+            $(this).val("");
+            alert("Error: Input data from 0-99")
+             $(this).focus();
+            //$(this).css('background-color','#ffcccc');
+           //alert(id);
+           //setTimeout(function(id) {$(id).css('background-color','inherit', {}, 1000)}, 1000);
+          // inherit
+          }
+      });
+      
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^placing
+//------------------------------------------------------tunnel clazs
+$('.tunnel_clazs').focusout(function()
+      {
+          var CheckZip = $(this).val();
+          
+          var id = $(this).attr("id");
+        if(parseInt(CheckZip)>31 || parseInt(CheckZip)<0)
+         {
+            $(this).val("");
+            alert("Error: Input data from 0-31")
+             $(this).focus();
+       }
+      });
+//------------------------------------------------------full crates clazs
+$('.fullcrates_clazs').focusout(function()
+      {
+          var CheckZip = $(this).val();
+          
+          var id = $(this).attr("id");
+        if(parseInt(CheckZip)>18 || parseInt(CheckZip)<-1)
+         {
+            $(this).val("");
+            alert("Error: Input data from 0-17")
+             $(this).focus();
+            //$(this).css('background-color','#ffcccc');
+           //alert(id);
+           //setTimeout(function(id) {$(id).css('background-color','inherit', {}, 1000)}, 1000);
+          // inherit
+       }
+      });
+   //------------------------------------------------------completerows crates clazs
+$('.completerows_clazs').focusout(function()
+      {
+          var CheckZip = $(this).val();
+          
+          var id = $(this).attr("id");
+        if(parseInt(CheckZip)>21 || parseInt(CheckZip)<-1)
+         {
+            $(this).val("");
+            alert("Error: Input data from 0-21")
+             $(this).focus();
+            //$(this).css('background-color','#ffcccc');
+           //alert(id);
+           //setTimeout(function(id) {$(id).css('background-color','inherit', {}, 1000)}, 1000);
+          // inherit
+       }
+      });
+     //------------------------------------------------------incompleterows crates clazs
+$('.incompleterows_clazs').focusout(function()
+      {
+          var CheckZip = $(this).val();
+          
+          var id = $(this).attr("id");
+        if(parseInt(CheckZip)>11 || parseInt(CheckZip)<-1)
+         {
+            $(this).val("");
+            alert("Error: Input data from 0-10")
+             $(this).focus();
+            //$(this).css('background-color','#ffcccc');
+           //alert(id);
+           //setTimeout(function(id) {$(id).css('background-color','inherit', {}, 1000)}, 1000);
+          // inherit
+       }
+      });
+      
+ //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^cleaning/stock
+ $('.bed_clazs').focusout(function()
+      {
+          var CheckZip = $(this).val();
+          
+          var id = $(this).attr("id");
+        if(parseInt(CheckZip)>200 || parseInt(CheckZip)<-1)
+         {
+            $(this).val("");
+            alert("Error: Input data from 0-10")
+             $(this).focus();
+            //$(this).css('background-color','#ffcccc');
+           //alert(id);
+           //setTimeout(function(id) {$(id).css('background-color','inherit', {}, 1000)}, 1000);
+          // inherit
+       }
+      });
+      //__________________________________________________________________________________________
+    $('.spaces_clazs').focusout(function()
+      {
+          var CheckZip = $(this).val();
+          
+          var id = $(this).attr("id");
+        if(parseInt(CheckZip)>500 || parseInt(CheckZip)<-1)
+         {
+            $(this).val("");
+            alert("Error: Input data from 0-10")
+             $(this).focus();
+            //$(this).css('background-color','#ffcccc');
+           //alert(id);
+           //setTimeout(function(id) {$(id).css('background-color','inherit', {}, 1000)}, 1000);
+          // inherit
+       }
+      });
+      ///________________________________________________________________________________________
+      $('.inspaces_clazs').focusout(function()
+      {
+          var CheckZip = $(this).val();
+          
+          var id = $(this).attr("id");
+        if(parseInt(CheckZip)>150 || parseInt(CheckZip)<-1)
+         {
+            $(this).val("");
+            alert("Error: Input data from 0-10")
+             $(this).focus();
+            //$(this).css('background-color','#ffcccc');
+           //alert(id);
+           //setTimeout(function(id) {$(id).css('background-color','inherit', {}, 1000)}, 1000);
+          // inherit
+       }
+      });
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ --tab btns
+//***************************************************************************************
+$("#placing2_btn").click(function() {
+   //-------------------------------------header divs
+   $("#clipping_head_div").hide();
+    $("#placing_head_div").show();
+    $("#sorting_head_div").hide();
+    $("#cleaning_head_div").hide();
+    $("#stock_head_div").hide();
+    //-------------------------------------colors
+   $('#placing2_btn').css('background-color','#8cff82');
+   $('#clipping2_btn').css('background-color','#f5f5f5');
+   $('#sorting2_btn').css('background-color','#f5f5f5');
+   $('#cleaning2_btn').css('background-color','#f5f5f5');
+   $('#stock2_btn').css('background-color','#f5f5f5');
+   //-------------------------------------submit btn
+    $("#clipping_btn").hide();
+    $("#placing_btn").show();
+    $("#sorting_btn").hide();
+    $("#cleaning_btn").hide();
+    $("#stock_btn").hide();
+    
+    //-------------------------------------cancel btn
+    $("#clipping1_btn").hide();
+    $("#placing1_btn").show();
+    $("#sorting1_btn").hide();
+    $("#cleaning1_btn").hide();
+    $("#stock1_btn").hide();
+  
+  //-------------------------------------body divs  
+    $("#clipping_body").hide();
+    $("#placing_body").show();
+    $("#sorting_body").hide();
+    $("#cleaning_body").hide();
+    $("#stock_body").hide();
+    
+     $("#placing_date_id" ).datepicker("show");
+  });
+  
+  //***************************************************************************************
+$("#clipping2_btn").click(function() {
+   //-------------------------------------header divs
+   $("#clipping_head_div").show();
+    $("#placing_head_div").hide();
+    $("#sorting_head_div").hide();
+    $("#cleaning_head_div").hide();
+    $("#stock_head_div").hide();
+    //-------------------------------------colors
+     $('#placing2_btn').css('background-color','#f5f5f5');
+   $('#clipping2_btn').css('background-color','#8cff82');
+   $('#sorting2_btn').css('background-color','#f5f5f5');
+   $('#cleaning2_btn').css('background-color','#f5f5f5');
+   $('#stock2_btn').css('background-color','#f5f5f5');
+   
+   //-------------------------------------submit btn
+    $("#clipping_btn").show();
+    $("#placing_btn").hide();
+    $("#sorting_btn").hide();
+    $("#cleaning_btn").hide();
+    $("#stock_btn").hide();
+    
+    //-------------------------------------cancel btn
+    $("#clipping1_btn").show();
+    $("#placing1_btn").hide();
+    $("#sorting1_btn").hide();
+    $("#cleaning1_btn").hide();
+    $("#stock1_btn").hide();
+  
+  //-------------------------------------body divs  
+    $("#clipping_body").show();
+    $("#placing_body").hide();
+    $("#sorting_body").hide();
+    $("#cleaning_body").hide();
+    $("#stock_body").hide();
+    
+    // $("#clipping_date_id" ).datepicker("show");
+  });
+
+  //***************************************************************************************
+$("#sorting2_btn").click(function() {
+   //-------------------------------------header divs
+   $("#clipping_head_div").hide();
+    $("#placing_head_div").hide();
+    $("#sorting_head_div").show();
+    $("#cleaning_head_div").hide();
+    $("#stock_head_div").hide();
+    //-------------------------------------colors
+    $('#placing2_btn').css('background-color','#f5f5f5');
+   $('#clipping2_btn').css('background-color','#f5f5f5');
+   $('#sorting2_btn').css('background-color','#8cff82');
+   $('#cleaning2_btn').css('background-color','#f5f5f5');
+   $('#stock2_btn').css('background-color','#f5f5f5');
+   //-------------------------------------submit btn
+    $("#clipping_btn").hide();
+    $("#placing_btn").hide();
+    $("#sorting_btn").show();
+    $("#cleaning_btn").hide();
+    $("#stock_btn").hide();
+    
+    //-------------------------------------cancel btn
+    $("#clipping1_btn").hide();
+    $("#placing1_btn").hide();
+    $("#sorting1_btn").show();
+    $("#cleaning1_btn").hide();
+    $("#stock1_btn").hide();
+  
+  //-------------------------------------body divs  
+    $("#clipping_body").hide();
+    $("#placing_body").hide();
+    $("#sorting_body").show();
+    $("#cleaning_body").hide();
+    $("#stock_body").hide();
+    
+     $("#sorting_date_id" ).datepicker("show");
+  });
+
+  //***************************************************************************************
+$("#cleaning2_btn").click(function() {
+   //-------------------------------------header divs
+   $("#clipping_head_div").hide();
+    $("#placing_head_div").hide();
+    $("#sorting_head_div").hide();
+    $("#cleaning_head_div").show();
+    $("#stock_head_div").hide();
+    //-------------------------------------colors
+     $('#placing2_btn').css('background-color','#f5f5f5');
+   $('#clipping2_btn').css('background-color','#f5f5f5');
+   $('#sorting2_btn').css('background-color','#f5f5f5');
+   $('#cleaning2_btn').css('background-color','#8cff82');
+   $('#stock2_btn').css('background-color','#f5f5f5');
+   
+   //-------------------------------------submit btn
+    $("#clipping_btn").hide();
+    $("#placing_btn").hide();
+    $("#sorting_btn").hide();
+    $("#cleaning_btn").show();
+    $("#stock_btn").hide();
+    
+    //-------------------------------------cancel btn
+    $("#clipping1_btn").hide();
+    $("#placing1_btn").hide();
+    $("#sorting1_btn").hide();
+    $("#cleaning1_btn").show();
+    $("#stock1_btn").hide();
+  
+  //-------------------------------------body divs  
+    $("#clipping_body").hide();
+    $("#placing_body").hide();
+    $("#sorting_body").hide();
+    $("#cleaning_body").show();
+    $("#stock_body").hide();
+    
+    $("#cleaning_date_id" ).datepicker("show");
+  });
+
+  //***************************************************************************************
+$("#stock2_btn").click(function() {
+   //-------------------------------------header divs
+   $("#clipping_head_div").hide();
+    $("#placing_head_div").hide();
+    $("#sorting_head_div").hide();
+    $("#cleaning_head_div").hide();
+    $("#stock_head_div").show();
+    //-------------------------------------colors
+     $('#placing2_btn').css('background-color','#f5f5f5');
+   $('#clipping2_btn').css('background-color','#f5f5f5');
+   $('#sorting2_btn').css('background-color','#f5f5f5');
+   $('#cleaning2_btn').css('background-color','#f5f5f5');
+   $('#stock2_btn').css('background-color','#8cff82');
+   
+   //-------------------------------------submit btn
+    $("#clipping_btn").hide();
+    $("#placing_btn").hide();
+    $("#sorting_btn").hide();
+    $("#cleaning_btn").hide();
+    $("#stock_btn").show();
+    
+    //-------------------------------------cancel btn
+    $("#clipping1_btn").hide();
+    $("#placing1_btn").hide();
+    $("#sorting1_btn").hide();
+    $("#cleaning1_btn").hide();
+    $("#stock1_btn").show();
+  
+  //-------------------------------------body divs  
+    $("#clipping_body").hide();
+    $("#placing_body").hide();
+    $("#sorting_body").hide();
+    $("#cleaning_body").hide();
+    $("#stock_body").show();
+    
+     $("#stock_date_id" ).datepicker("show");
+  });
+ //***************************************************************************************clipping cancel btn
+ $("#clipping1_btn").click(function() {clearClipping();});
+//***************************************************************************************PLACING cancel btn
+ $("#placing1_btn").click(function() {clearPlacing();}); 
+ //***************************************************************************************PLACING cancel btn
+ $("#sorting1_btn").click(function() {clearSorting();}); 
+//***************************************************************************************clipping cancel btn
+ $("#cleaning1_btn").click(function() {clearCleaning();});
+//***************************************************************************************PLACING cancel btn
+ $("#stock1_btn").click(function() {clearStock();}); 
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$----submiting data
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^clipping
+$("#clipping_btn").click(function() {
+
+//--------------------------------------getting table values
+//alert("whatt??");
+var rowf1 =[];
+rowf1[0]=document.getElementById("a1").value;
+rowf1[1]=document.getElementById("b1").value;
+rowf1[2]=document.getElementById("c1").value;
+
+var rowf2 =[];
+rowf2[0]=document.getElementById("a2").value;
+rowf2[1]=document.getElementById("b2").value;
+rowf2[2]=document.getElementById("c2").value;
+
+var rowf3 =[];
+rowf3[0]=document.getElementById("a3").value;
+rowf3[1]=document.getElementById("b3").value;
+rowf3[2]=document.getElementById("c3").value;
+
+var rowf4 =[];
+rowf4[0]=document.getElementById("a4").value;
+rowf4[1]=document.getElementById("b4").value;
+rowf4[2]=document.getElementById("c4").value;
+
+var rowf5 =[];
+rowf5[0]=document.getElementById("a5").value;
+rowf5[1]=document.getElementById("b5").value;
+rowf5[2]=document.getElementById("c5").value;
+
+var rowf6 =[];
+rowf6[0]=document.getElementById("a6").value;
+rowf6[1]=document.getElementById("b6").value;
+rowf6[2]=document.getElementById("c6").value;
+
+
+var rowf7 =[];
+rowf7[0]=document.getElementById("a7").value;
+rowf7[1]=document.getElementById("b7").value;
+rowf7[2]=document.getElementById("c7").value;
+
+var rowf8 =[];
+rowf8[0]=document.getElementById("a8").value;
+rowf8[1]=document.getElementById("b8").value;
+rowf8[2]=document.getElementById("c8").value;
+
+
+var rowf9 =[];
+rowf9[0]=document.getElementById("a9").value;
+rowf9[1]=document.getElementById("b9").value;
+rowf9[2]=document.getElementById("c9").value;
+
+var rowf10 =[];
+rowf10[0]=document.getElementById("a10").value;
+rowf10[1]=document.getElementById("b10").value;
+rowf10[2]=document.getElementById("c10").value;
+
+
+var rowf11 =[];
+rowf11[0]=document.getElementById("a11").value;
+rowf11[1]=document.getElementById("b11").value;
+rowf11[2]=document.getElementById("c11").value;
+
+
+var rowf12 =[];
+rowf12[0]=document.getElementById("a12").value;
+rowf12[1]=document.getElementById("b12").value;
+rowf12[2]=document.getElementById("c12").value;
+
+
+var rowf13 =[];
+rowf13[0]=document.getElementById("a13").value;
+rowf13[1]=document.getElementById("b13").value;
+rowf13[2]=document.getElementById("c13").value;
+
+var rowf14 =[];
+rowf14[0]=document.getElementById("a14").value;
+rowf14[1]=document.getElementById("b14").value;
+rowf14[2]=document.getElementById("c14").value;
+
+var rowf15 =[];
+rowf15[0]=document.getElementById("a15").value;
+rowf15[1]=document.getElementById("b15").value;
+rowf15[2]=document.getElementById("c15").value;
+
+var rowf16 =[];
+rowf16[0]=document.getElementById("a16").value;
+rowf16[1]=document.getElementById("b16").value;
+rowf16[2]=document.getElementById("c16").value;
+
+
+var rowf17 =[];
+rowf17[0]=document.getElementById("a17").value;
+rowf17[1]=document.getElementById("b17").value;
+rowf17[2]=document.getElementById("c17").value;
+
+
+var rowf18 =[];
+rowf18[0]=document.getElementById("a18").value;
+rowf18[1]=document.getElementById("b18").value;
+rowf18[2]=document.getElementById("c18").value;
+
+var rowf19 =[];
+rowf19[0]=document.getElementById("a19").value;
+rowf19[1]=document.getElementById("b19").value;
+rowf19[2]=document.getElementById("c19").value;
+
+var rowf20 =[];
+rowf20[0]=document.getElementById("a20").value;
+rowf20[1]=document.getElementById("b20").value;
+rowf20[2]=document.getElementById("c20").value;
+
+var rowf21 =[];
+rowf21[0]=document.getElementById("a21").value;
+rowf21[1]=document.getElementById("b21").value;
+rowf21[2]=document.getElementById("c21").value;
+
+
+var rowf22 =[];
+rowf22[0]=document.getElementById("a22").value;
+rowf22[1]=document.getElementById("b22").value;
+rowf22[2]=document.getElementById("c22").value;
+
+
+var rowf23 =[];
+rowf23[0]=document.getElementById("a23").value;
+rowf23[1]=document.getElementById("b23").value;
+rowf23[2]=document.getElementById("c23").value;
+
+var rowf24 =[];
+rowf24[0]=document.getElementById("a24").value;
+rowf24[1]=document.getElementById("b24").value;
+rowf24[2]=document.getElementById("c24").value;
+
+
+var rowf25 =[];
+rowf25[0]=document.getElementById("a25").value;
+rowf25[1]=document.getElementById("b25").value;
+rowf25[2]=document.getElementById("c25").value;
+ 
+var rowf26 =[];
+rowf26[0]=document.getElementById("a26").value;
+rowf26[1]=document.getElementById("b26").value;
+rowf26[2]=document.getElementById("c26").value;
+
+var rowf27 =[];
+rowf27[0]=document.getElementById("a27").value;
+rowf27[1]=document.getElementById("b27").value;
+rowf27[2]=document.getElementById("c27").value;
+
+var rowf28 =[];
+rowf28[0]=document.getElementById("a28").value;
+rowf28[1]=document.getElementById("b28").value;
+rowf28[2]=document.getElementById("c28").value;
+
+
+var rowf29 =[];
+rowf29[0]=document.getElementById("a29").value;
+rowf29[1]=document.getElementById("b29").value;
+rowf29[2]=document.getElementById("c29").value;
+
+
+var rowf30 =[];
+rowf30[0]=document.getElementById("a30").value;
+rowf30[1]=document.getElementById("b30").value;
+rowf30[2]=document.getElementById("c30").value;
+//____________________________________________________validating each row
+var sizef1 = rowf1.filter(function(value) { return value !=='' }).length;
+var sizef2 = rowf2.filter(function(value) { return value !=='' }).length;
+var sizef3 = rowf3.filter(function(value) { return value !=='' }).length;
+var sizef4 = rowf4.filter(function(value) { return value !=='' }).length;
+var sizef5 = rowf5.filter(function(value) { return value !=='' }).length;
+var sizef6 = rowf6.filter(function(value) { return value !=='' }).length;
+var sizef7 = rowf7.filter(function(value) { return value !=='' }).length;
+var sizef8 = rowf8.filter(function(value) { return value !=='' }).length;
+var sizef9 = rowf9.filter(function(value) { return value !=='' }).length;
+var sizef10 = rowf10.filter(function(value) { return value !=='' }).length;
+var sizef11 = rowf11.filter(function(value) { return value !=='' }).length;
+var sizef12 = rowf12.filter(function(value) { return value !=='' }).length;
+var sizef13 = rowf13.filter(function(value) { return value !=='' }).length;
+var sizef14 = rowf14.filter(function(value) { return value !=='' }).length;
+var sizef15 = rowf15.filter(function(value) { return value !=='' }).length;
+var sizef16 = rowf16.filter(function(value) { return value !=='' }).length;
+var sizef17 = rowf17.filter(function(value) { return value !=='' }).length;
+var sizef18 = rowf18.filter(function(value) { return value !=='' }).length;
+var sizef19 = rowf19.filter(function(value) { return value !=='' }).length;
+var sizef20 = rowf20.filter(function(value) { return value !=='' }).length;
+var sizef21 = rowf21.filter(function(value) { return value !=='' }).length;
+var sizef22 = rowf22.filter(function(value) { return value !=='' }).length;
+var sizef23 = rowf23.filter(function(value) { return value !=='' }).length;
+var sizef24 = rowf24.filter(function(value) { return value !=='' }).length;
+var sizef25 = rowf25.filter(function(value) { return value !=='' }).length;
+var sizef26 = rowf26.filter(function(value) { return value !=='' }).length;
+var sizef27 = rowf27.filter(function(value) { return value !=='' }).length;
+var sizef28 = rowf28.filter(function(value) { return value !=='' }).length;
+var sizef29 = rowf29.filter(function(value) { return value !=='' }).length;
+var sizef30 = rowf30.filter(function(value) { return value !=='' }).length;
+
+
+
+var jsDate =$("#clipping_date_id").val();
+var supervisor =$("#clipping_supervisor_id").val();
+var potType =$("#clipping_batch_id").val();
+var user =$("#user_id").text();
+
+if(jsDate==""){
+alert("Pleaze select the date");
+$( "#clipping_date_id" ).datepicker("show");
+} else if(supervisor=="Komaza ID"){
+alert("Pleaze select the supervisor ID");
+}else if(potType==""){
+alert("Input Pot Type");
+}else if((sizef1!=3)){
+ $('#row1').css('background-color','#ffcccc');
+ alert("Error: Data not entered correctly");
+  //__________________________________________________________returning normal color
+ setTimeout(function() {
+$("#row1").css('background-color','#ffffff', {}, 3000)
+    }, 3000);
+} else if((sizef2!=0)&&(sizef2!=3)){
+  alert("Error: Data not entered correctly");
+  $('#row2').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row2").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((sizef3!=0)&&(sizef3!=3)){
+alert("Error: Data not entered correctly");
+  $('#row3').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row3").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((sizef4!=0)&&(sizef4!=3)){
+alert("Error: Data not entered correctly");
+  $('#row4').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row4").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((sizef5!=0)&&(sizef5!=3)){
+alert("Error: Data not entered correctly");
+  $('#row5').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row5").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((sizef6!=0)&&(sizef6!=3)){
+alert("Error: Data not entered correctly");
+  $('#row6').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row6").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((sizef7!=0)&&(sizef7!=3)){
+alert("Error: Data not entered correctly");
+  $('#row7').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row7").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((sizef8!=0)&&(sizef8!=3)){
+alert("Error: Data not entered correctly");
+  $('#row8').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row8").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((sizef9!=0)&&(sizef9!=3)){
+alert("Error: Data not entered correctly");
+  $('#row9').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row9").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((sizef10!=0)&&(sizef10!=3)){
+alert("Error: Data not entered correctly");
+  $('#row10').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row10").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((sizef11!=0)&&(sizef11!=3)){
+alert("Error: Data not entered correctly");
+  $('#row11').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row11").css('background-color','#ffffff', {}, 3000)}, 3000);
+} else if((sizef12!=0)&&(sizef12!=3)){
+alert("Error: Data not entered correctly");
+  $('#row12').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row12").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((sizef13!=0)&&(sizef13!=3)){
+alert("Error: Data not entered correctly");
+  $('#row13').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row13").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((sizef14!=0)&&(sizef14!=3)){
+alert("Error: Data not entered correctly");
+  $('#row14').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row14").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((sizef15!=0)&&(sizef15!=3)){
+alert("Error: Data not entered correctly");
+  $('#row15').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row15").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((sizef16!=0)&&(sizef16!=3)){
+alert("Error: Data not entered correctly");
+  $('#row16').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row16").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((sizef17!=0)&&(sizef17!=3)){
+alert("Error: Data not entered correctly");
+  $('#row17').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row17").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((sizef18!=0)&&(sizef18!=3)){
+alert("Error: Data not entered correctly");
+  $('#row18').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row18").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((sizef19!=0)&&(sizef19!=3)){
+alert("Error: Data not entered correctly");
+  $('#row19').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row19").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((sizef20!=0)&&(sizef20!=3)){
+alert("Error: Data not entered correctly");
+  $('#row20').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row20").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+}else if((sizef21!=0)&&(sizef21!=3)){
+alert("Error: Data not entered correctly");
+  $('#row21').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row21").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((sizef22!=0)&&(sizef22!=3)){
+  alert("Error: Data not entered correctly");
+  $('#row22').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row22").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((sizef23!=0)&&(sizef23!=3)){
+alert("Error: Data not entered correctly");
+  $('#row23').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row23").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((sizef24!=0)&&(sizef24!=3)){
+alert("Error: Data not entered correctly");
+  $('#row24').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row24").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((sizef25!=0)&&(sizef25!=3)){
+alert("Error: Data not entered correctly");
+  $('#row25').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row25").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((sizef26!=0)&&(sizef26!=3)){
+alert("Error: Data not entered correctly");
+  $('#row26').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row26").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((sizef27!=0)&&(sizef27!=3)){
+alert("Error: Data not entered correctly");
+  $('#row27').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row27").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((sizef28!=0)&&(sizef28!=3)){
+alert("Error: Data not entered correctly");
+  $('#row28').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row28").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((sizef29!=0)&&(sizef29!=3)){
+alert("Error: Data not entered correctly");
+  $('#row29').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row29").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((sizef30!=0)&&(sizef30!=3)){
+alert("Error: Data not entered correctly");
+  $('#row30').css('background-color','#ffcccc');
+ setTimeout(function() {$("#row30").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+}
+//-________________________________________________________the data is now correct
+else{
+window.addEventListener('offline', () => {
+   alert("Error: You are offline"); 
+});
+//alert("cheza na rieng"); 
+//var user=document.getElementById("user_id").value;
+var paztef=[];
+paztef[0]=rowf1
+paztef[1]=rowf2
+paztef[2]=rowf3
+paztef[3]=rowf4
+paztef[4]=rowf5
+paztef[5]=rowf6
+paztef[6]=rowf7
+paztef[7]=rowf8
+paztef[8]=rowf8
+paztef[9]=rowf10
+paztef[10]=rowf11
+paztef[11]=rowf12
+paztef[12]=rowf13
+paztef[13]=rowf14
+paztef[14]=rowf15
+paztef[15]=rowf16
+paztef[16]=rowf17
+paztef[17]=rowf18
+paztef[18]=rowf18
+paztef[19]=rowf20
+paztef[20]=rowf21
+paztef[21]=rowf22
+paztef[22]=rowf23
+paztef[23]=rowf24
+paztef[24]=rowf25
+paztef[25]=rowf26
+paztef[26]=rowf27
+paztef[27]=rowf28
+paztef[28]=rowf28
+paztef[29]=rowf30
+
+alert(paztef);
+
+google.script.run.withSuccessHandler(wazThereDuplicates).pazteClipping(paztef,supervisor,jsDate);
+
+}
+
+
+
+
+//---------------closing tag
+  });
+function wazThereDuplicates(mmm){
+if(mmm=="success"){
+clearClipping();
+alert("Data sent Successfully");
+}else{
+alert(mmm);}
+}
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^placing
+$("#placing_btn").click(function() {
+
+//--------------------------------------getting table values
+
+var row1 =[];
+row1[0]=document.getElementById("ap1").value;
+row1[1]=document.getElementById("bp1").value;
+row1[2]=document.getElementById("cp1").value;
+row1[3]=document.getElementById("dp1").value;
+row1[4]=document.getElementById("ep1").value;
+row1[5]=document.getElementById("fp1").value;
+row1[6]=document.getElementById("gp1").value;
+
+
+var row2 =[];
+row2[0]=document.getElementById("ap2").value;
+row2[1]=document.getElementById("bp2").value;
+row2[2]=document.getElementById("cp2").value;
+row2[3]=document.getElementById("dp2").value;
+row2[4]=document.getElementById("ep2").value;
+row2[5]=document.getElementById("fp2").value;
+row2[6]=document.getElementById("gp2").value;
+
+
+
+var row3 =[];
+row3[0]=document.getElementById("ap3").value;
+row3[1]=document.getElementById("bp3").value;
+row3[2]=document.getElementById("cp3").value;
+row3[3]=document.getElementById("dp3").value;
+row3[4]=document.getElementById("ep3").value;
+row3[5]=document.getElementById("fp3").value;
+row3[6]=document.getElementById("gp3").value;
+
+
+
+var row4 =[];
+row4[0]=document.getElementById("ap4").value;
+row4[1]=document.getElementById("bp4").value;
+row4[2]=document.getElementById("cp4").value;
+row4[3]=document.getElementById("dp4").value;
+row4[4]=document.getElementById("ep4").value;
+row4[5]=document.getElementById("fp4").value;
+row4[6]=document.getElementById("gp4").value;
+
+
+var row5 =[];
+row5[0]=document.getElementById("ap5").value;
+row5[1]=document.getElementById("bp5").value;
+row5[2]=document.getElementById("cp5").value;
+row5[3]=document.getElementById("dp5").value;
+row5[4]=document.getElementById("ep5").value;
+row5[5]=document.getElementById("fp5").value;
+row5[6]=document.getElementById("gp5").value;
+
+
+var row6 =[];
+row6[0]=document.getElementById("ap6").value;
+row6[1]=document.getElementById("bp6").value;
+row6[2]=document.getElementById("cp6").value;
+row6[3]=document.getElementById("dp6").value;
+row6[4]=document.getElementById("ep6").value;
+row6[5]=document.getElementById("fp6").value;
+row6[6]=document.getElementById("gp6").value;
+
+
+var row7 =[];
+row7[0]=document.getElementById("ap7").value;
+row7[1]=document.getElementById("bp7").value;
+row7[2]=document.getElementById("cp7").value;
+row7[3]=document.getElementById("dp7").value;
+row7[4]=document.getElementById("ep7").value;
+row7[5]=document.getElementById("fp7").value;
+row7[6]=document.getElementById("gp7").value;
+
+
+
+var row8 =[];
+row8[0]=document.getElementById("ap8").value;
+row8[1]=document.getElementById("bp8").value;
+row8[2]=document.getElementById("cp8").value;
+row8[3]=document.getElementById("dp8").value;
+row8[4]=document.getElementById("ep8").value;
+row8[5]=document.getElementById("fp8").value;
+row8[6]=document.getElementById("gp8").value;
+
+
+
+var row9 =[];
+row9[0]=document.getElementById("ap9").value;
+row9[1]=document.getElementById("bp9").value;
+row9[2]=document.getElementById("cp9").value;
+row9[3]=document.getElementById("dp9").value;
+row9[4]=document.getElementById("ep9").value;
+row9[5]=document.getElementById("fp9").value;
+row9[6]=document.getElementById("gp9").value;
+
+
+
+var row10 =[];
+row10[0]=document.getElementById("ap10").value;
+row10[1]=document.getElementById("bp10").value;
+row10[2]=document.getElementById("cp10").value;
+row10[3]=document.getElementById("dp10").value;
+row10[4]=document.getElementById("ep10").value;
+row10[5]=document.getElementById("fp10").value;
+row10[6]=document.getElementById("gp10").value;
+
+
+
+var row11 =[];
+row11[0]=document.getElementById("ap11").value;
+row11[1]=document.getElementById("bp11").value;
+row11[2]=document.getElementById("cp11").value;
+row11[3]=document.getElementById("dp11").value;
+row11[4]=document.getElementById("ep11").value;
+row11[5]=document.getElementById("fp11").value;
+row11[6]=document.getElementById("gp11").value;
+
+
+
+var row12 =[];
+row12[0]=document.getElementById("ap12").value;
+row12[1]=document.getElementById("bp12").value;
+row12[2]=document.getElementById("cp12").value;
+row12[3]=document.getElementById("dp12").value;
+row12[4]=document.getElementById("ep12").value;
+row12[5]=document.getElementById("fp12").value;
+row12[6]=document.getElementById("gp12").value;
+
+
+
+var row13 =[];
+row13[0]=document.getElementById("ap13").value;
+row13[1]=document.getElementById("bp13").value;
+row13[2]=document.getElementById("cp13").value;
+row13[3]=document.getElementById("dp13").value;
+row13[4]=document.getElementById("ep13").value;
+row13[5]=document.getElementById("fp13").value;
+row13[6]=document.getElementById("gp13").value;
+
+
+
+var row14 =[];
+row14[0]=document.getElementById("ap14").value;
+row14[1]=document.getElementById("bp14").value;
+row14[2]=document.getElementById("cp14").value;
+row14[3]=document.getElementById("dp14").value;
+row14[4]=document.getElementById("ep14").value;
+row14[5]=document.getElementById("fp14").value;
+row14[6]=document.getElementById("gp14").value;
+
+
+
+var row15 =[];
+row15[0]=document.getElementById("ap15").value;
+row15[1]=document.getElementById("bp15").value;
+row15[2]=document.getElementById("cp15").value;
+row15[3]=document.getElementById("dp15").value;
+row15[4]=document.getElementById("ep15").value;
+row15[5]=document.getElementById("fp15").value;
+row15[6]=document.getElementById("gp15").value;
+
+
+
+var row16 =[];
+row16[0]=document.getElementById("ap16").value;
+row16[1]=document.getElementById("bp16").value;
+row16[2]=document.getElementById("cp16").value;
+row16[3]=document.getElementById("dp16").value;
+row16[4]=document.getElementById("ep16").value;
+row16[5]=document.getElementById("fp16").value;
+row16[6]=document.getElementById("gp16").value;
+
+
+
+var row17 =[];
+row17[0]=document.getElementById("ap17").value;
+row17[1]=document.getElementById("bp17").value;
+row17[2]=document.getElementById("cp17").value;
+row17[3]=document.getElementById("dp17").value;
+row17[4]=document.getElementById("ep17").value;
+row17[5]=document.getElementById("fp17").value;
+row17[6]=document.getElementById("gp17").value;
+
+
+
+var row18 =[];
+row18[0]=document.getElementById("ap18").value;
+row18[1]=document.getElementById("bp18").value;
+row18[2]=document.getElementById("cp18").value;
+row18[3]=document.getElementById("dp18").value;
+row18[4]=document.getElementById("ep18").value;
+row18[5]=document.getElementById("fp18").value;
+row18[6]=document.getElementById("gp18").value;
+
+
+var row19 =[];
+row19[0]=document.getElementById("ap19").value;
+row19[1]=document.getElementById("bp19").value;
+row19[2]=document.getElementById("cp19").value;
+row19[3]=document.getElementById("dp19").value;
+row19[4]=document.getElementById("ep19").value;
+row19[5]=document.getElementById("fp19").value;
+row19[6]=document.getElementById("gp19").value;
+
+
+
+var row20 =[];
+row20[0]=document.getElementById("ap20").value;
+row20[1]=document.getElementById("bp20").value;
+row20[2]=document.getElementById("cp20").value;
+row20[3]=document.getElementById("dp20").value;
+row20[4]=document.getElementById("ep20").value;
+row20[5]=document.getElementById("fp20").value;
+row20[6]=document.getElementById("gp20").value;
+
+
+
+//____________________________________________________validating each row
+var size1 = row1.filter(function(value) { return value !=='' }).length;
+var size2 = row2.filter(function(value) { return value !=='' }).length;
+var size3 = row3.filter(function(value) { return value !=='' }).length;
+var size4 = row4.filter(function(value) { return value !=='' }).length;
+var size5 = row5.filter(function(value) { return value !=='' }).length;
+var size6 = row6.filter(function(value) { return value !=='' }).length;
+var size7 = row7.filter(function(value) { return value !=='' }).length;
+var size8 = row8.filter(function(value) { return value !=='' }).length;
+var size9 = row9.filter(function(value) { return value !=='' }).length;
+var size10 = row10.filter(function(value) { return value !=='' }).length;
+var size11 = row11.filter(function(value) { return value !=='' }).length;
+var size12 = row12.filter(function(value) { return value !=='' }).length;
+var size13 = row13.filter(function(value) { return value !=='' }).length;
+var size14 = row14.filter(function(value) { return value !=='' }).length;
+var size15 = row15.filter(function(value) { return value !=='' }).length;
+var size16 = row16.filter(function(value) { return value !=='' }).length;
+var size17 = row17.filter(function(value) { return value !=='' }).length;
+var size18 = row18.filter(function(value) { return value !=='' }).length;
+var size19 = row19.filter(function(value) { return value !=='' }).length;
+var size20 = row20.filter(function(value) { return value !=='' }).length;
+
+
+
+//var jsDate =$("#placing_date_id").val();
+var jsDate = document.getElementById("placing_date_id").value;
+var supervisor =$("#placing_supervisor_id").val();
+var batch =$("#placing_batch_id").val();
+var placers =$("#placers_id").val();
+var user =$("#user_id").text();
+
+if(jsDate==""){
+alert("Please select the date");
+$( "#placing_date_id" ).datepicker("show");
+} else if(supervisor=="Komaza ID"){
+alert("Please select the supervisor ID");
+}else if(placers==""){
+alert("Please enter number of placers");
+}else if((size1!=7)){
+ $('#rowp1').css('background-color','#ffcccc');
+ alert("Error: Data not entered correctly");
+ //__________________________________________________________returning normal color
+ setTimeout(function() {
+$("#rowp1").css('background-color','#ffffff', {}, 3000)
+    }, 3000);//__________________________________________________
+} else if((size2!=0)&&(size2!=7)){
+  alert("Error: Data not entered correctly");
+  $('#rowp2').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp2").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size3!=0)&&(size3!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp3').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp3").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size4!=0)&&(size4!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp4').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp4").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size5!=0)&&(size5!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp5').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp5").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size6!=0)&&(size6!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp6').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp6").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size7!=0)&&(size7!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp7').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp7").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size8!=0)&&(size8!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp8').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp8").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size9!=0)&&(size9!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp9').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp9").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size10!=0)&&(size10!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp10').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp10").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size11!=0)&&(size11!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp11').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp11").css('background-color','#ffffff', {}, 3000)}, 3000);
+} else if((size12!=0)&&(size12!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp12').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp12").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size13!=0)&&(size13!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp13').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp13").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size14!=0)&&(size14!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp14').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp14").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size15!=0)&&(size15!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp15').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp15").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size16!=0)&&(size16!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp16').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp16").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size17!=0)&&(size17!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp17').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp17").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size18!=0)&&(size18!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp18').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp18").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size19!=0)&&(size19!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp19').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp19").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size20!=0)&&(size20!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowp20').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowp20").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+}  
+//-________________________________________________________the data is now correct
+else{
+
+
+//var user=document.getElementById("user_id").value;
+var placing_data =[];
+placing_data[0]=row1
+placing_data[1]=row2
+placing_data[2]=row3
+placing_data[3]=row4
+placing_data[4]=row5
+placing_data[5]=row6
+placing_data[6]=row7
+placing_data[7]=row8
+placing_data[8]=row9
+placing_data[9]=row10
+placing_data[10]=row11
+placing_data[11]=row12
+placing_data[12]=row13
+placing_data[13]=row14
+placing_data[14]=row15
+placing_data[15]=row16
+placing_data[16]=row17
+placing_data[17]=row18
+placing_data[18]=row19
+placing_data[19]=row20
+
+
+alert("ready to run");
+google.script.run.withSuccessHandler(placing_duplicates_check).pastePlacing(placing_data,supervisor,jsDate,user,batch,placers);
+
+}
+
+
+
+
+//---------------closing tag
+  });
+function placing_duplicates_check(mmm){
+if(mmm=="success"){
+clearPlacing();
+alert("Data sent Successfully");
+}else{
+alert(mmm);}
+}
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^sorting
+$("#sorting_btn").click(function() {
+
+//--------------------------------------getting table values
+
+var row1 =[];
+row1[0]=document.getElementById("as1").value;
+row1[1]=document.getElementById("bs1").value;
+row1[2]=document.getElementById("cs1").value;
+row1[3]=document.getElementById("ds1").value;
+row1[4]=document.getElementById("es1").value;
+row1[5]=document.getElementById("fs1").value;
+row1[6]=document.getElementById("gs1").value;
+
+
+var row2 =[];
+row2[0]=document.getElementById("as2").value;
+row2[1]=document.getElementById("bs2").value;
+row2[2]=document.getElementById("cs2").value;
+row2[3]=document.getElementById("ds2").value;
+row2[4]=document.getElementById("es2").value;
+row2[5]=document.getElementById("fs2").value;
+row2[6]=document.getElementById("gs2").value;
+
+
+
+var row3 =[];
+row3[0]=document.getElementById("as3").value;
+row3[1]=document.getElementById("bs3").value;
+row3[2]=document.getElementById("cs3").value;
+row3[3]=document.getElementById("ds3").value;
+row3[4]=document.getElementById("es3").value;
+row3[5]=document.getElementById("fs3").value;
+row3[6]=document.getElementById("gs3").value;
+
+
+
+var row4 =[];
+row4[0]=document.getElementById("as4").value;
+row4[1]=document.getElementById("bs4").value;
+row4[2]=document.getElementById("cs4").value;
+row4[3]=document.getElementById("ds4").value;
+row4[4]=document.getElementById("es4").value;
+row4[5]=document.getElementById("fs4").value;
+row4[6]=document.getElementById("gs4").value;
+
+
+var row5 =[];
+row5[0]=document.getElementById("as5").value;
+row5[1]=document.getElementById("bs5").value;
+row5[2]=document.getElementById("cs5").value;
+row5[3]=document.getElementById("ds5").value;
+row5[4]=document.getElementById("es5").value;
+row5[5]=document.getElementById("fs5").value;
+row5[6]=document.getElementById("gs5").value;
+
+
+var row6 =[];
+row6[0]=document.getElementById("as6").value;
+row6[1]=document.getElementById("bs6").value;
+row6[2]=document.getElementById("cs6").value;
+row6[3]=document.getElementById("ds6").value;
+row6[4]=document.getElementById("es6").value;
+row6[5]=document.getElementById("fs6").value;
+row6[6]=document.getElementById("gs6").value;
+
+
+var row7 =[];
+row7[0]=document.getElementById("as7").value;
+row7[1]=document.getElementById("bs7").value;
+row7[2]=document.getElementById("cs7").value;
+row7[3]=document.getElementById("ds7").value;
+row7[4]=document.getElementById("es7").value;
+row7[5]=document.getElementById("fs7").value;
+row7[6]=document.getElementById("gs7").value;
+
+
+
+var row8 =[];
+row8[0]=document.getElementById("as8").value;
+row8[1]=document.getElementById("bs8").value;
+row8[2]=document.getElementById("cs8").value;
+row8[3]=document.getElementById("ds8").value;
+row8[4]=document.getElementById("es8").value;
+row8[5]=document.getElementById("fs8").value;
+row8[6]=document.getElementById("gs8").value;
+
+
+
+var row9 =[];
+row9[0]=document.getElementById("as9").value;
+row9[1]=document.getElementById("bs9").value;
+row9[2]=document.getElementById("cs9").value;
+row9[3]=document.getElementById("ds9").value;
+row9[4]=document.getElementById("es9").value;
+row9[5]=document.getElementById("fs9").value;
+row9[6]=document.getElementById("gs9").value;
+
+
+
+var row10 =[];
+row10[0]=document.getElementById("as10").value;
+row10[1]=document.getElementById("bs10").value;
+row10[2]=document.getElementById("cs10").value;
+row10[3]=document.getElementById("ds10").value;
+row10[4]=document.getElementById("es10").value;
+row10[5]=document.getElementById("fs10").value;
+row10[6]=document.getElementById("gs10").value;
+
+
+
+var row11 =[];
+row11[0]=document.getElementById("as11").value;
+row11[1]=document.getElementById("bs11").value;
+row11[2]=document.getElementById("cs11").value;
+row11[3]=document.getElementById("ds11").value;
+row11[4]=document.getElementById("es11").value;
+row11[5]=document.getElementById("fs11").value;
+row11[6]=document.getElementById("gs11").value;
+
+
+
+var row12 =[];
+row12[0]=document.getElementById("as12").value;
+row12[1]=document.getElementById("bs12").value;
+row12[2]=document.getElementById("cs12").value;
+row12[3]=document.getElementById("ds12").value;
+row12[4]=document.getElementById("es12").value;
+row12[5]=document.getElementById("fs12").value;
+row12[6]=document.getElementById("gs12").value;
+
+
+
+var row13 =[];
+row13[0]=document.getElementById("as13").value;
+row13[1]=document.getElementById("bs13").value;
+row13[2]=document.getElementById("cs13").value;
+row13[3]=document.getElementById("ds13").value;
+row13[4]=document.getElementById("es13").value;
+row13[5]=document.getElementById("fs13").value;
+row13[6]=document.getElementById("gs13").value;
+
+
+
+var row14 =[];
+row14[0]=document.getElementById("as14").value;
+row14[1]=document.getElementById("bs14").value;
+row14[2]=document.getElementById("cs14").value;
+row14[3]=document.getElementById("ds14").value;
+row14[4]=document.getElementById("es14").value;
+row14[5]=document.getElementById("fs14").value;
+row14[6]=document.getElementById("gs14").value;
+
+
+
+var row15 =[];
+row15[0]=document.getElementById("as15").value;
+row15[1]=document.getElementById("bs15").value;
+row15[2]=document.getElementById("cs15").value;
+row15[3]=document.getElementById("ds15").value;
+row15[4]=document.getElementById("es15").value;
+row15[5]=document.getElementById("fs15").value;
+row15[6]=document.getElementById("gs15").value;
+
+
+
+var row16 =[];
+row16[0]=document.getElementById("as16").value;
+row16[1]=document.getElementById("bs16").value;
+row16[2]=document.getElementById("cs16").value;
+row16[3]=document.getElementById("ds16").value;
+row16[4]=document.getElementById("es16").value;
+row16[5]=document.getElementById("fs16").value;
+row16[6]=document.getElementById("gs16").value;
+
+
+
+var row17 =[];
+row17[0]=document.getElementById("as17").value;
+row17[1]=document.getElementById("bs17").value;
+row17[2]=document.getElementById("cs17").value;
+row17[3]=document.getElementById("ds17").value;
+row17[4]=document.getElementById("es17").value;
+row17[5]=document.getElementById("fs17").value;
+row17[6]=document.getElementById("gs17").value;
+
+
+
+var row18 =[];
+row18[0]=document.getElementById("as18").value;
+row18[1]=document.getElementById("bs18").value;
+row18[2]=document.getElementById("cs18").value;
+row18[3]=document.getElementById("ds18").value;
+row18[4]=document.getElementById("es18").value;
+row18[5]=document.getElementById("fs18").value;
+row18[6]=document.getElementById("gs18").value;
+
+
+var row19 =[];
+row19[0]=document.getElementById("as19").value;
+row19[1]=document.getElementById("bs19").value;
+row19[2]=document.getElementById("cs19").value;
+row19[3]=document.getElementById("ds19").value;
+row19[4]=document.getElementById("es19").value;
+row19[5]=document.getElementById("fs19").value;
+row19[6]=document.getElementById("gs19").value;
+
+
+
+var row20 =[];
+row20[0]=document.getElementById("as20").value;
+row20[1]=document.getElementById("bs20").value;
+row20[2]=document.getElementById("cs20").value;
+row20[3]=document.getElementById("ds20").value;
+row20[4]=document.getElementById("es20").value;
+row20[5]=document.getElementById("fs20").value;
+row20[6]=document.getElementById("gs20").value;
+
+
+
+//____________________________________________________validating each row
+var size1 = row1.filter(function(value) { return value !=='' }).length;
+var size2 = row2.filter(function(value) { return value !=='' }).length;
+var size3 = row3.filter(function(value) { return value !=='' }).length;
+var size4 = row4.filter(function(value) { return value !=='' }).length;
+var size5 = row5.filter(function(value) { return value !=='' }).length;
+var size6 = row6.filter(function(value) { return value !=='' }).length;
+var size7 = row7.filter(function(value) { return value !=='' }).length;
+var size8 = row8.filter(function(value) { return value !=='' }).length;
+var size9 = row9.filter(function(value) { return value !=='' }).length;
+var size10 = row10.filter(function(value) { return value !=='' }).length;
+var size11 = row11.filter(function(value) { return value !=='' }).length;
+var size12 = row12.filter(function(value) { return value !=='' }).length;
+var size13 = row13.filter(function(value) { return value !=='' }).length;
+var size14 = row14.filter(function(value) { return value !=='' }).length;
+var size15 = row15.filter(function(value) { return value !=='' }).length;
+var size16 = row16.filter(function(value) { return value !=='' }).length;
+var size17 = row17.filter(function(value) { return value !=='' }).length;
+var size18 = row18.filter(function(value) { return value !=='' }).length;
+var size19 = row19.filter(function(value) { return value !=='' }).length;
+var size20 = row20.filter(function(value) { return value !=='' }).length;
+
+
+//var jsDate =$("#sorting_date_id").val();
+var jsDate = document.getElementById("sorting_date_id").value;
+var supervisor =$("#sorting_supervisor_id").val();
+var batch =$("#sorting_batch_id").val();
+var placers =$("#sorters_id").val();
+var user =$("#user_id").text();
+
+if(jsDate==""){
+alert("Please select the date");
+$( "#sorting_date_id" ).datepicker("show");
+} else if(supervisor=="Komaza ID"){
+alert("Please select the supervisor ID");
+}else if(placers==""){
+alert("Please enter number of placers");
+}else if((size1!=7)){
+ $('#rows1').css('background-color','#ffcccc');
+  alert(size1);
+ alert("Error: Data not entered correctly");
+ //__________________________________________________________returning normal color
+ setTimeout(function() {
+$("#rows1").css('background-color','#ffffff', {}, 3000)
+    }, 3000);//__________________________________________________
+} else if((size2!=0)&&(size2!=7)){
+  alert("Error: Data not entered correctly");
+ 
+  $('#rows2').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows2").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size3!=0)&&(size3!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows3').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows3").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size4!=0)&&(size4!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows4').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows4").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size5!=0)&&(size5!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows5').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows5").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size6!=0)&&(size6!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows6').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows6").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size7!=0)&&(size7!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows7').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows7").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size8!=0)&&(size8!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows8').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows8").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size9!=0)&&(size9!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows9').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows9").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size10!=0)&&(size10!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows10').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows10").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size11!=0)&&(size11!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows11').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows11").css('background-color','#ffffff', {}, 3000)}, 3000);
+} else if((size12!=0)&&(size12!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows12').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows12").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size13!=0)&&(size13!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows13').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows13").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size14!=0)&&(size14!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows14').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows14").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size15!=0)&&(size15!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows15').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows15").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size16!=0)&&(size16!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows16').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows16").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size17!=0)&&(size17!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows17').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows17").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size18!=0)&&(size18!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows18').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows18").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size19!=0)&&(size19!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows19').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows19").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size20!=0)&&(size20!=7)){
+alert("Error: Data not entered correctly");
+  $('#rows20').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rows20").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+}  
+//-________________________________________________________the data is now correct
+else{
+
+
+//var user=document.getElementById("user_id").value;
+var paste=[];
+paste[0]=row1
+paste[1]=row2
+paste[2]=row3
+paste[3]=row4
+paste[4]=row5
+paste[5]=row6
+paste[6]=row7
+paste[7]=row8
+paste[8]=row9
+paste[9]=row10
+paste[10]=row11
+paste[11]=row12
+paste[12]=row13
+paste[13]=row14
+paste[14]=row15
+paste[15]=row16
+paste[16]=row17
+paste[17]=row18
+paste[18]=row19
+paste[19]=row20
+
+var sheetname="sortingData";
+alert("ready to run");
+google.script.run.withSuccessHandler(wasThereDuplicateSS).pasteSorting(sheetname,paste,supervisor,jsDate,user,batch,placers);
+
+}
+
+
+
+
+//---------------closing tag
+  });
+function wasThereDuplicateSS(mmm){
+if(mmm=="success"){
+clearSorting();
+alert("Data sent Successfully");
+}else{
+alert(mmm);}
+}
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^cleaning
+$("#cleaning_btn").click(function() {
+
+//--------------------------------------getting table values
+
+var row1 =[];
+row1[0]=document.getElementById("ak1").value;
+row1[1]=document.getElementById("bk1").value;
+row1[2]=document.getElementById("ck1").value;
+row1[3]=document.getElementById("dk1").value;
+row1[4]=document.getElementById("ek1").value;
+row1[5]=document.getElementById("fk1").value;
+row1[6]=document.getElementById("gk1").value;
+
+
+var row2 =[];
+row2[0]=document.getElementById("ak2").value;
+row2[1]=document.getElementById("bk2").value;
+row2[2]=document.getElementById("ck2").value;
+row2[3]=document.getElementById("dk2").value;
+row2[4]=document.getElementById("ek2").value;
+row2[5]=document.getElementById("fk2").value;
+row2[6]=document.getElementById("gk2").value;
+
+
+
+var row3 =[];
+row3[0]=document.getElementById("ak3").value;
+row3[1]=document.getElementById("bk3").value;
+row3[2]=document.getElementById("ck3").value;
+row3[3]=document.getElementById("dk3").value;
+row3[4]=document.getElementById("ek3").value;
+row3[5]=document.getElementById("fk3").value;
+row3[6]=document.getElementById("gk3").value;
+
+
+
+var row4 =[];
+row4[0]=document.getElementById("ak4").value;
+row4[1]=document.getElementById("bk4").value;
+row4[2]=document.getElementById("ck4").value;
+row4[3]=document.getElementById("dk4").value;
+row4[4]=document.getElementById("ek4").value;
+row4[5]=document.getElementById("fk4").value;
+row4[6]=document.getElementById("gk4").value;
+
+
+var row5 =[];
+row5[0]=document.getElementById("ak5").value;
+row5[1]=document.getElementById("bk5").value;
+row5[2]=document.getElementById("ck5").value;
+row5[3]=document.getElementById("dk5").value;
+row5[4]=document.getElementById("ek5").value;
+row5[5]=document.getElementById("fk5").value;
+row5[6]=document.getElementById("gk5").value;
+
+
+var row6 =[];
+row6[0]=document.getElementById("ak6").value;
+row6[1]=document.getElementById("bk6").value;
+row6[2]=document.getElementById("ck6").value;
+row6[3]=document.getElementById("dk6").value;
+row6[4]=document.getElementById("ek6").value;
+row6[5]=document.getElementById("fk6").value;
+row6[6]=document.getElementById("gk6").value;
+
+
+var row7 =[];
+row7[0]=document.getElementById("ak7").value;
+row7[1]=document.getElementById("bk7").value;
+row7[2]=document.getElementById("ck7").value;
+row7[3]=document.getElementById("dk7").value;
+row7[4]=document.getElementById("ek7").value;
+row7[5]=document.getElementById("fk7").value;
+row7[6]=document.getElementById("gk7").value;
+
+
+
+var row8 =[];
+row8[0]=document.getElementById("ak8").value;
+row8[1]=document.getElementById("bk8").value;
+row8[2]=document.getElementById("ck8").value;
+row8[3]=document.getElementById("dk8").value;
+row8[4]=document.getElementById("ek8").value;
+row8[5]=document.getElementById("fk8").value;
+row8[6]=document.getElementById("gk8").value;
+
+
+
+var row9 =[];
+row9[0]=document.getElementById("ak9").value;
+row9[1]=document.getElementById("bk9").value;
+row9[2]=document.getElementById("ck9").value;
+row9[3]=document.getElementById("dk9").value;
+row9[4]=document.getElementById("ek9").value;
+row9[5]=document.getElementById("fk9").value;
+row9[6]=document.getElementById("gk9").value;
+
+
+
+var row10 =[];
+row10[0]=document.getElementById("ak10").value;
+row10[1]=document.getElementById("bk10").value;
+row10[2]=document.getElementById("ck10").value;
+row10[3]=document.getElementById("dk10").value;
+row10[4]=document.getElementById("ek10").value;
+row10[5]=document.getElementById("fk10").value;
+row10[6]=document.getElementById("gk10").value;
+
+
+
+var row11 =[];
+row11[0]=document.getElementById("ak11").value;
+row11[1]=document.getElementById("bk11").value;
+row11[2]=document.getElementById("ck11").value;
+row11[3]=document.getElementById("dk11").value;
+row11[4]=document.getElementById("ek11").value;
+row11[5]=document.getElementById("fk11").value;
+row11[6]=document.getElementById("gk11").value;
+
+
+
+var row12 =[];
+row12[0]=document.getElementById("ak12").value;
+row12[1]=document.getElementById("bk12").value;
+row12[2]=document.getElementById("ck12").value;
+row12[3]=document.getElementById("dk12").value;
+row12[4]=document.getElementById("ek12").value;
+row12[5]=document.getElementById("fk12").value;
+row12[6]=document.getElementById("gk12").value;
+
+
+
+var row13 =[];
+row13[0]=document.getElementById("ak13").value;
+row13[1]=document.getElementById("bk13").value;
+row13[2]=document.getElementById("ck13").value;
+row13[3]=document.getElementById("dk13").value;
+row13[4]=document.getElementById("ek13").value;
+row13[5]=document.getElementById("fk13").value;
+row13[6]=document.getElementById("gk13").value;
+
+
+
+var row14 =[];
+row14[0]=document.getElementById("ak14").value;
+row14[1]=document.getElementById("bk14").value;
+row14[2]=document.getElementById("ck14").value;
+row14[3]=document.getElementById("dk14").value;
+row14[4]=document.getElementById("ek14").value;
+row14[5]=document.getElementById("fk14").value;
+row14[6]=document.getElementById("gk14").value;
+
+
+
+var row15 =[];
+row15[0]=document.getElementById("ak15").value;
+row15[1]=document.getElementById("bk15").value;
+row15[2]=document.getElementById("ck15").value;
+row15[3]=document.getElementById("dk15").value;
+row15[4]=document.getElementById("ek15").value;
+row15[5]=document.getElementById("fk15").value;
+row15[6]=document.getElementById("gk15").value;
+
+
+
+var row16 =[];
+row16[0]=document.getElementById("ak16").value;
+row16[1]=document.getElementById("bk16").value;
+row16[2]=document.getElementById("ck16").value;
+row16[3]=document.getElementById("dk16").value;
+row16[4]=document.getElementById("ek16").value;
+row16[5]=document.getElementById("fk16").value;
+row16[6]=document.getElementById("gk16").value;
+
+
+
+var row17 =[];
+row17[0]=document.getElementById("ak17").value;
+row17[1]=document.getElementById("bk17").value;
+row17[2]=document.getElementById("ck17").value;
+row17[3]=document.getElementById("dk17").value;
+row17[4]=document.getElementById("ek17").value;
+row17[5]=document.getElementById("fk17").value;
+row17[6]=document.getElementById("gk17").value;
+
+
+
+var row18 =[];
+row18[0]=document.getElementById("ak18").value;
+row18[1]=document.getElementById("bk18").value;
+row18[2]=document.getElementById("ck18").value;
+row18[3]=document.getElementById("dk18").value;
+row18[4]=document.getElementById("ek18").value;
+row18[5]=document.getElementById("fk18").value;
+row18[6]=document.getElementById("gk18").value;
+
+
+var row19 =[];
+row19[0]=document.getElementById("ak19").value;
+row19[1]=document.getElementById("bk19").value;
+row19[2]=document.getElementById("ck19").value;
+row19[3]=document.getElementById("dk19").value;
+row19[4]=document.getElementById("ek19").value;
+row19[5]=document.getElementById("fk19").value;
+row19[6]=document.getElementById("gk19").value;
+
+
+
+var row20 =[];
+row20[0]=document.getElementById("ak20").value;
+row20[1]=document.getElementById("bk20").value;
+row20[2]=document.getElementById("ck20").value;
+row20[3]=document.getElementById("dk20").value;
+row20[4]=document.getElementById("ek20").value;
+row20[5]=document.getElementById("fk20").value;
+row20[6]=document.getElementById("gk20").value;
+
+
+
+//____________________________________________________validating each row
+var size1 = row1.filter(function(value) { return value !=='' }).length;
+var size2 = row2.filter(function(value) { return value !=='' }).length;
+var size3 = row3.filter(function(value) { return value !=='' }).length;
+var size4 = row4.filter(function(value) { return value !=='' }).length;
+var size5 = row5.filter(function(value) { return value !=='' }).length;
+var size6 = row6.filter(function(value) { return value !=='' }).length;
+var size7 = row7.filter(function(value) { return value !=='' }).length;
+var size8 = row8.filter(function(value) { return value !=='' }).length;
+var size9 = row9.filter(function(value) { return value !=='' }).length;
+var size10 = row10.filter(function(value) { return value !=='' }).length;
+var size11 = row11.filter(function(value) { return value !=='' }).length;
+var size12 = row12.filter(function(value) { return value !=='' }).length;
+var size13 = row13.filter(function(value) { return value !=='' }).length;
+var size14 = row14.filter(function(value) { return value !=='' }).length;
+var size15 = row15.filter(function(value) { return value !=='' }).length;
+var size16 = row16.filter(function(value) { return value !=='' }).length;
+var size17 = row17.filter(function(value) { return value !=='' }).length;
+var size18 = row18.filter(function(value) { return value !=='' }).length;
+var size19 = row19.filter(function(value) { return value !=='' }).length;
+var size20 = row20.filter(function(value) { return value !=='' }).length;
+
+
+
+//var jsDate =$("#cleaning_date_id").val();
+var jsDate =document.getElementById("cleaning_date_id").value;
+var supervisor =$("#cleaning_supervisor_id").val();
+var batch =$("#cleaning_batch_id").val();
+var placers =$("#cleaners_id").val();
+var user =$("#user_id").text();
+
+if(jsDate==""){
+alert("Pleaze select the date");
+$( "#cleaning_date_id" ).datepicker("show");
+} else if(supervisor=="Komaza ID"){
+alert("Pleaze select the supervisor ID");
+}else if(placers==""){
+alert("Pleaze enter number of cleaners");
+}else if((size1!=7)){
+ $('#rowk1').css('background-color','#ffcccc');
+ alert("Error: Data not entered correctly");
+ //__________________________________________________________returning normal color
+ setTimeout(function() {
+$("#rowk1").css('background-color','#ffffff', {}, 3000)
+    }, 3000);//__________________________________________________
+} else if((size2!=0)&&(size2!=7)){
+  alert("Error: Data not entered correctly");
+  $('#rowk2').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk2").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size3!=0)&&(size3!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk3').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk3").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size4!=0)&&(size4!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk4').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk4").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size5!=0)&&(size5!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk5').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk5").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size6!=0)&&(size6!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk6').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk6").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size7!=0)&&(size7!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk7').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk7").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size8!=0)&&(size8!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk8').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk8").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size9!=0)&&(size9!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk9').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk9").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size10!=0)&&(size10!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk10').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk10").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size11!=0)&&(size11!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk11').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk11").css('background-color','#ffffff', {}, 3000)}, 3000);
+} else if((size12!=0)&&(size12!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk12').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk12").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size13!=0)&&(size13!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk13').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk13").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size14!=0)&&(size14!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk14').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk14").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size15!=0)&&(size15!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk15').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk15").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size16!=0)&&(size16!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk16').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk16").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size17!=0)&&(size17!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk17').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk17").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size18!=0)&&(size18!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk18').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk18").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size19!=0)&&(size19!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk19').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk19").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size20!=0)&&(size20!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowk20').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowk20").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+}  
+//-________________________________________________________the data is now correct
+else{
+
+
+//var user=document.getElementById("user_id").value;
+var pazte=[];
+pazte[0]=row1
+pazte[1]=row2
+pazte[2]=row3
+pazte[3]=row4
+pazte[4]=row5
+pazte[5]=row6
+pazte[6]=row7
+pazte[7]=row8
+pazte[8]=row9
+pazte[9]=row10
+pazte[10]=row11
+pazte[11]=row12
+pazte[12]=row13
+pazte[13]=row14
+pazte[14]=row15
+pazte[15]=row16
+pazte[16]=row17
+pazte[17]=row18
+pazte[18]=row19
+pazte[19]=row20
+
+var sheetname="cleaningData";
+alert("ready to run");
+google.script.run.withSuccessHandler(wazThereDuplicatesC).pasteSorting(sheetname,pazte,supervisor,jsDate,user,batch,placers);
+
+}
+
+
+
+
+//---------------closing tag
+  });
+function wazThereDuplicatesC(mmm){
+if(mmm=="success"){
+clearCleaning();
+alert("Data sent Successfully");
+}else{
+alert(mmm);}
+}
+
+//^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^stock
+$("#stock_btn").click(function() {
+
+//--------------------------------------getting table values
+
+var row1 =[];
+row1[0]=document.getElementById("az1").value;
+row1[1]=document.getElementById("bz1").value;
+row1[2]=document.getElementById("cz1").value;
+row1[3]=document.getElementById("dz1").value;
+row1[4]=document.getElementById("ez1").value;
+row1[5]=document.getElementById("fz1").value;
+row1[6]=document.getElementById("gz1").value;
+
+
+var row2 =[];
+row2[0]=document.getElementById("az2").value;
+row2[1]=document.getElementById("bz2").value;
+row2[2]=document.getElementById("cz2").value;
+row2[3]=document.getElementById("dz2").value;
+row2[4]=document.getElementById("ez2").value;
+row2[5]=document.getElementById("fz2").value;
+row2[6]=document.getElementById("gz2").value;
+
+
+
+var row3 =[];
+row3[0]=document.getElementById("az3").value;
+row3[1]=document.getElementById("bz3").value;
+row3[2]=document.getElementById("cz3").value;
+row3[3]=document.getElementById("dz3").value;
+row3[4]=document.getElementById("ez3").value;
+row3[5]=document.getElementById("fz3").value;
+row3[6]=document.getElementById("gz3").value;
+
+
+
+var row4 =[];
+row4[0]=document.getElementById("az4").value;
+row4[1]=document.getElementById("bz4").value;
+row4[2]=document.getElementById("cz4").value;
+row4[3]=document.getElementById("dz4").value;
+row4[4]=document.getElementById("ez4").value;
+row4[5]=document.getElementById("fz4").value;
+row4[6]=document.getElementById("gz4").value;
+
+
+var row5 =[];
+row5[0]=document.getElementById("az5").value;
+row5[1]=document.getElementById("bz5").value;
+row5[2]=document.getElementById("cz5").value;
+row5[3]=document.getElementById("dz5").value;
+row5[4]=document.getElementById("ez5").value;
+row5[5]=document.getElementById("fz5").value;
+row5[6]=document.getElementById("gz5").value;
+
+
+var row6 =[];
+row6[0]=document.getElementById("az6").value;
+row6[1]=document.getElementById("bz6").value;
+row6[2]=document.getElementById("cz6").value;
+row6[3]=document.getElementById("dz6").value;
+row6[4]=document.getElementById("ez6").value;
+row6[5]=document.getElementById("fz6").value;
+row6[6]=document.getElementById("gz6").value;
+
+
+var row7 =[];
+row7[0]=document.getElementById("az7").value;
+row7[1]=document.getElementById("bz7").value;
+row7[2]=document.getElementById("cz7").value;
+row7[3]=document.getElementById("dz7").value;
+row7[4]=document.getElementById("ez7").value;
+row7[5]=document.getElementById("fz7").value;
+row7[6]=document.getElementById("gz7").value;
+
+
+
+var row8 =[];
+row8[0]=document.getElementById("az8").value;
+row8[1]=document.getElementById("bz8").value;
+row8[2]=document.getElementById("cz8").value;
+row8[3]=document.getElementById("dz8").value;
+row8[4]=document.getElementById("ez8").value;
+row8[5]=document.getElementById("fz8").value;
+row8[6]=document.getElementById("gz8").value;
+
+
+
+var row9 =[];
+row9[0]=document.getElementById("az9").value;
+row9[1]=document.getElementById("bz9").value;
+row9[2]=document.getElementById("cz9").value;
+row9[3]=document.getElementById("dz9").value;
+row9[4]=document.getElementById("ez9").value;
+row9[5]=document.getElementById("fz9").value;
+row9[6]=document.getElementById("gz9").value;
+
+
+
+var row10 =[];
+row10[0]=document.getElementById("az10").value;
+row10[1]=document.getElementById("bz10").value;
+row10[2]=document.getElementById("cz10").value;
+row10[3]=document.getElementById("dz10").value;
+row10[4]=document.getElementById("ez10").value;
+row10[5]=document.getElementById("fz10").value;
+row10[6]=document.getElementById("gz10").value;
+
+
+
+var row11 =[];
+row11[0]=document.getElementById("az11").value;
+row11[1]=document.getElementById("bz11").value;
+row11[2]=document.getElementById("cz11").value;
+row11[3]=document.getElementById("dz11").value;
+row11[4]=document.getElementById("ez11").value;
+row11[5]=document.getElementById("fz11").value;
+row11[6]=document.getElementById("gz11").value;
+
+
+
+var row12 =[];
+row12[0]=document.getElementById("az12").value;
+row12[1]=document.getElementById("bz12").value;
+row12[2]=document.getElementById("cz12").value;
+row12[3]=document.getElementById("dz12").value;
+row12[4]=document.getElementById("ez12").value;
+row12[5]=document.getElementById("fz12").value;
+row12[6]=document.getElementById("gz12").value;
+
+
+
+var row13 =[];
+row13[0]=document.getElementById("az13").value;
+row13[1]=document.getElementById("bz13").value;
+row13[2]=document.getElementById("cz13").value;
+row13[3]=document.getElementById("dz13").value;
+row13[4]=document.getElementById("ez13").value;
+row13[5]=document.getElementById("fz13").value;
+row13[6]=document.getElementById("gz13").value;
+
+
+
+var row14 =[];
+row14[0]=document.getElementById("az14").value;
+row14[1]=document.getElementById("bz14").value;
+row14[2]=document.getElementById("cz14").value;
+row14[3]=document.getElementById("dz14").value;
+row14[4]=document.getElementById("ez14").value;
+row14[5]=document.getElementById("fz14").value;
+row14[6]=document.getElementById("gz14").value;
+
+
+
+var row15 =[];
+row15[0]=document.getElementById("az15").value;
+row15[1]=document.getElementById("bz15").value;
+row15[2]=document.getElementById("cz15").value;
+row15[3]=document.getElementById("dz15").value;
+row15[4]=document.getElementById("ez15").value;
+row15[5]=document.getElementById("fz15").value;
+row15[6]=document.getElementById("gz15").value;
+
+
+
+var row16 =[];
+row16[0]=document.getElementById("az16").value;
+row16[1]=document.getElementById("bz16").value;
+row16[2]=document.getElementById("cz16").value;
+row16[3]=document.getElementById("dz16").value;
+row16[4]=document.getElementById("ez16").value;
+row16[5]=document.getElementById("fz16").value;
+row16[6]=document.getElementById("gz16").value;
+
+
+
+var row17 =[];
+row17[0]=document.getElementById("az17").value;
+row17[1]=document.getElementById("bz17").value;
+row17[2]=document.getElementById("cz17").value;
+row17[3]=document.getElementById("dz17").value;
+row17[4]=document.getElementById("ez17").value;
+row17[5]=document.getElementById("fz17").value;
+row17[6]=document.getElementById("gz17").value;
+
+
+
+var row18 =[];
+row18[0]=document.getElementById("az18").value;
+row18[1]=document.getElementById("bz18").value;
+row18[2]=document.getElementById("cz18").value;
+row18[3]=document.getElementById("dz18").value;
+row18[4]=document.getElementById("ez18").value;
+row18[5]=document.getElementById("fz18").value;
+row18[6]=document.getElementById("gz18").value;
+
+
+var row19 =[];
+row19[0]=document.getElementById("az19").value;
+row19[1]=document.getElementById("bz19").value;
+row19[2]=document.getElementById("cz19").value;
+row19[3]=document.getElementById("dz19").value;
+row19[4]=document.getElementById("ez19").value;
+row19[5]=document.getElementById("fz19").value;
+row19[6]=document.getElementById("gz19").value;
+
+
+
+var row20 =[];
+row20[0]=document.getElementById("az20").value;
+row20[1]=document.getElementById("bz20").value;
+row20[2]=document.getElementById("cz20").value;
+row20[3]=document.getElementById("dz20").value;
+row20[4]=document.getElementById("ez20").value;
+row20[5]=document.getElementById("fz20").value;
+row20[6]=document.getElementById("gz20").value;
+
+
+
+//____________________________________________________validating each row
+var size1 = row1.filter(function(value) { return value !=='' }).length;
+var size2 = row2.filter(function(value) { return value !=='' }).length;
+var size3 = row3.filter(function(value) { return value !=='' }).length;
+var size4 = row4.filter(function(value) { return value !=='' }).length;
+var size5 = row5.filter(function(value) { return value !=='' }).length;
+var size6 = row6.filter(function(value) { return value !=='' }).length;
+var size7 = row7.filter(function(value) { return value !=='' }).length;
+var size8 = row8.filter(function(value) { return value !=='' }).length;
+var size9 = row9.filter(function(value) { return value !=='' }).length;
+var size10 = row10.filter(function(value) { return value !=='' }).length;
+var size11 = row11.filter(function(value) { return value !=='' }).length;
+var size12 = row12.filter(function(value) { return value !=='' }).length;
+var size13 = row13.filter(function(value) { return value !=='' }).length;
+var size14 = row14.filter(function(value) { return value !=='' }).length;
+var size15 = row15.filter(function(value) { return value !=='' }).length;
+var size16 = row16.filter(function(value) { return value !=='' }).length;
+var size17 = row17.filter(function(value) { return value !=='' }).length;
+var size18 = row18.filter(function(value) { return value !=='' }).length;
+var size19 = row19.filter(function(value) { return value !=='' }).length;
+var size20 = row20.filter(function(value) { return value !=='' }).length;
+
+
+
+//var jsDate =$("#stock_date_id").val(); //Removed to get UK- date.
+var jsDate = document.getElementById("stock_date_id").value;
+var supervisor =$("#stock_supervisor_id").val();
+var batch =$("#stock_batch_id").val();
+var placers =$("#cleaners1_id").val();
+var user =$("#user_id").text();
+
+if(jsDate==""){
+alert("Please select the date");
+$( "#stock_date_id" ).datepicker("show");
+} else if(supervisor=="Komaza ID"){
+alert("Please select the supervisor ID");
+}else if(placers==""){
+alert("Please enter number of cleaners");
+}else if((size1!=7)){
+ $('#rowz1').css('background-color','#ffcccc');
+ alert("Error: Data not entered correctly");
+ //__________________________________________________________returning normal color
+ setTimeout(function() {
+$("#rowz1").css('background-color','#ffffff', {}, 3000)
+    }, 3000);//__________________________________________________
+} else if((size2!=0)&&(size2!=7)){
+  alert("Error: Data not entered correctly");
+  $('#rowz2').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz2").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size3!=0)&&(size3!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz3').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz3").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size4!=0)&&(size4!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz4').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz4").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size5!=0)&&(size5!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz5').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz5").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size6!=0)&&(size6!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz6').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz6").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size7!=0)&&(size7!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz7').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz7").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size8!=0)&&(size8!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz8').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz8").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size9!=0)&&(size9!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz9').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz9").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size10!=0)&&(size10!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz10').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz10").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size11!=0)&&(size11!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz11').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz11").css('background-color','#ffffff', {}, 3000)}, 3000);
+} else if((size12!=0)&&(size12!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz12').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz12").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size13!=0)&&(size13!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz13').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz13").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size14!=0)&&(size14!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz14').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz14").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size15!=0)&&(size15!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz15').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz15").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size16!=0)&&(size16!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz16').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz16").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size17!=0)&&(size17!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz17').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz17").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size18!=0)&&(size18!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz18').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz18").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+} else if((size19!=0)&&(size19!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz19').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz19").css('background-color','#ffffff', {}, 3000)}, 3000);
+}  else if((size20!=0)&&(size20!=7)){
+alert("Error: Data not entered correctly");
+  $('#rowz20').css('background-color','#ffcccc');
+ setTimeout(function() {$("#rowz20").css('background-color','#f5f5f5', {}, 3000)}, 3000);
+}  
+//-________________________________________________________the data is now correct
+else{
+
+
+//var user=document.getElementById("user_id").value;
+var pazte=[];
+pazte[0]=row1
+pazte[1]=row2
+pazte[2]=row3
+pazte[3]=row4
+pazte[4]=row5
+pazte[5]=row6
+pazte[6]=row7
+pazte[7]=row8
+pazte[8]=row9
+pazte[9]=row10
+pazte[10]=row11
+pazte[11]=row12
+pazte[12]=row13
+pazte[13]=row14
+pazte[14]=row15
+pazte[15]=row16
+pazte[16]=row17
+pazte[17]=row18
+pazte[18]=row19
+pazte[19]=row20
+
+var sheetname="stockData";
+alert("ready to run");
+google.script.run.withSuccessHandler(wazThereDuplicatesST).pasteSorting(sheetname,pazte,supervisor,jsDate,user,batch,placers);
+
+}
+
+
+
+
+//---------------closing tag
+  });
+function wazThereDuplicatesST(mmm){
+if(mmm=="success"){
+clearStock();
+alert("Data sent Successfully");
+}else{
+alert(mmm);}
+}
+
+//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$-clear
+//**************************************************************clear clipping
+function clearClipping(){
+document.getElementById("a1").value='';
+document.getElementById("b1").value='';
+document.getElementById("c1").value='';
+document.getElementById("d1").value='';
+document.getElementById("e1").value='';
+document.getElementById("f1").value='';
+document.getElementById("g1").value='';
+document.getElementById("h1").value='';
+document.getElementById("i1").value='';
+document.getElementById("j1").value='';
+document.getElementById("k1").value='';
+document.getElementById("l1").value='';
+document.getElementById("m1").value='';
+document.getElementById("a2").value='';
+document.getElementById("b2").value='';
+document.getElementById("c2").value='';
+document.getElementById("d2").value='';
+document.getElementById("e2").value='';
+document.getElementById("f2").value='';
+document.getElementById("g2").value='';
+document.getElementById("h2").value='';
+document.getElementById("i2").value='';
+document.getElementById("j2").value='';
+document.getElementById("k2").value='';
+document.getElementById("l2").value='';
+document.getElementById("m2").value='';
+document.getElementById("a3").value='';
+document.getElementById("b3").value='';
+document.getElementById("c3").value='';
+document.getElementById("d3").value='';
+document.getElementById("e3").value='';
+document.getElementById("f3").value='';
+document.getElementById("g3").value='';
+document.getElementById("h3").value='';
+document.getElementById("i3").value='';
+document.getElementById("j3").value='';
+document.getElementById("k3").value='';
+document.getElementById("l3").value='';
+document.getElementById("m3").value='';
+document.getElementById("a4").value='';
+document.getElementById("b4").value='';
+document.getElementById("c4").value='';
+document.getElementById("d4").value='';
+document.getElementById("e4").value='';
+document.getElementById("f4").value='';
+document.getElementById("g4").value='';
+document.getElementById("h4").value='';
+document.getElementById("i4").value='';
+document.getElementById("j4").value='';
+document.getElementById("k4").value='';
+document.getElementById("l4").value='';
+document.getElementById("m4").value='';
+document.getElementById("a5").value='';
+document.getElementById("b5").value='';
+document.getElementById("c5").value='';
+document.getElementById("d5").value='';
+document.getElementById("e5").value='';
+document.getElementById("f5").value='';
+document.getElementById("g5").value='';
+document.getElementById("h5").value='';
+document.getElementById("i5").value='';
+document.getElementById("j5").value='';
+document.getElementById("k5").value='';
+document.getElementById("l5").value='';
+document.getElementById("m5").value='';
+document.getElementById("a6").value='';
+document.getElementById("b6").value='';
+document.getElementById("c6").value='';
+document.getElementById("d6").value='';
+document.getElementById("e6").value='';
+document.getElementById("f6").value='';
+document.getElementById("g6").value='';
+document.getElementById("h6").value='';
+document.getElementById("i6").value='';
+document.getElementById("j6").value='';
+document.getElementById("k6").value='';
+document.getElementById("l6").value='';
+document.getElementById("m6").value='';
+document.getElementById("a7").value='';
+document.getElementById("b7").value='';
+document.getElementById("c7").value='';
+document.getElementById("d7").value='';
+document.getElementById("e7").value='';
+document.getElementById("f7").value='';
+document.getElementById("g7").value='';
+document.getElementById("h7").value='';
+document.getElementById("i7").value='';
+document.getElementById("j7").value='';
+document.getElementById("k7").value='';
+document.getElementById("l7").value='';
+document.getElementById("m7").value='';
+document.getElementById("a8").value='';
+document.getElementById("b8").value='';
+document.getElementById("c8").value='';
+document.getElementById("d8").value='';
+document.getElementById("e8").value='';
+document.getElementById("f8").value='';
+document.getElementById("g8").value='';
+document.getElementById("h8").value='';
+document.getElementById("i8").value='';
+document.getElementById("j8").value='';
+document.getElementById("k8").value='';
+document.getElementById("l8").value='';
+document.getElementById("m8").value='';
+document.getElementById("a9").value='';
+document.getElementById("b9").value='';
+document.getElementById("c9").value='';
+document.getElementById("d9").value='';
+document.getElementById("e9").value='';
+document.getElementById("f9").value='';
+document.getElementById("g9").value='';
+document.getElementById("h9").value='';
+document.getElementById("i9").value='';
+document.getElementById("j9").value='';
+document.getElementById("k9").value='';
+document.getElementById("l9").value='';
+document.getElementById("m9").value='';
+document.getElementById("a10").value='';
+document.getElementById("b10").value='';
+document.getElementById("c10").value='';
+document.getElementById("d10").value='';
+document.getElementById("e10").value='';
+document.getElementById("f10").value='';
+document.getElementById("g10").value='';
+document.getElementById("h10").value='';
+document.getElementById("i10").value='';
+document.getElementById("j10").value='';
+document.getElementById("k10").value='';
+document.getElementById("l10").value='';
+document.getElementById("m10").value='';
+document.getElementById("a11").value='';
+document.getElementById("b11").value='';
+document.getElementById("c11").value='';
+document.getElementById("d11").value='';
+document.getElementById("e11").value='';
+document.getElementById("f11").value='';
+document.getElementById("g11").value='';
+document.getElementById("h11").value='';
+document.getElementById("i11").value='';
+document.getElementById("j11").value='';
+document.getElementById("k11").value='';
+document.getElementById("l11").value='';
+document.getElementById("m11").value='';
+document.getElementById("a12").value='';
+document.getElementById("b12").value='';
+document.getElementById("c12").value='';
+document.getElementById("d12").value='';
+document.getElementById("e12").value='';
+document.getElementById("f12").value='';
+document.getElementById("g12").value='';
+document.getElementById("h12").value='';
+document.getElementById("i12").value='';
+document.getElementById("j12").value='';
+document.getElementById("k12").value='';
+document.getElementById("l12").value='';
+document.getElementById("m12").value='';
+document.getElementById("a13").value='';
+document.getElementById("b13").value='';
+document.getElementById("c13").value='';
+document.getElementById("d13").value='';
+document.getElementById("e13").value='';
+document.getElementById("f13").value='';
+document.getElementById("g13").value='';
+document.getElementById("h13").value='';
+document.getElementById("i13").value='';
+document.getElementById("j13").value='';
+document.getElementById("k13").value='';
+document.getElementById("l13").value='';
+document.getElementById("m13").value='';
+document.getElementById("a14").value='';
+document.getElementById("b14").value='';
+document.getElementById("c14").value='';
+document.getElementById("d14").value='';
+document.getElementById("e14").value='';
+document.getElementById("f14").value='';
+document.getElementById("g14").value='';
+document.getElementById("h14").value='';
+document.getElementById("i14").value='';
+document.getElementById("j14").value='';
+document.getElementById("k14").value='';
+document.getElementById("l14").value='';
+document.getElementById("m14").value='';
+document.getElementById("a15").value='';
+document.getElementById("b15").value='';
+document.getElementById("c15").value='';
+document.getElementById("d15").value='';
+document.getElementById("e15").value='';
+document.getElementById("f15").value='';
+document.getElementById("g15").value='';
+document.getElementById("h15").value='';
+document.getElementById("i15").value='';
+document.getElementById("j15").value='';
+document.getElementById("k15").value='';
+document.getElementById("l15").value='';
+document.getElementById("m15").value='';
+document.getElementById("a16").value='';
+document.getElementById("b16").value='';
+document.getElementById("c16").value='';
+document.getElementById("d16").value='';
+document.getElementById("e16").value='';
+document.getElementById("f16").value='';
+document.getElementById("g16").value='';
+document.getElementById("h16").value='';
+document.getElementById("i16").value='';
+document.getElementById("j16").value='';
+document.getElementById("k16").value='';
+document.getElementById("l16").value='';
+document.getElementById("m16").value='';
+document.getElementById("a17").value='';
+document.getElementById("b17").value='';
+document.getElementById("c17").value='';
+document.getElementById("d17").value='';
+document.getElementById("e17").value='';
+document.getElementById("f17").value='';
+document.getElementById("g17").value='';
+document.getElementById("h17").value='';
+document.getElementById("i17").value='';
+document.getElementById("j17").value='';
+document.getElementById("k17").value='';
+document.getElementById("l17").value='';
+document.getElementById("m17").value='';
+document.getElementById("a18").value='';
+document.getElementById("b18").value='';
+document.getElementById("c18").value='';
+document.getElementById("d18").value='';
+document.getElementById("e18").value='';
+document.getElementById("f18").value='';
+document.getElementById("g18").value='';
+document.getElementById("h18").value='';
+document.getElementById("i18").value='';
+document.getElementById("j18").value='';
+document.getElementById("k18").value='';
+document.getElementById("l18").value='';
+document.getElementById("m18").value='';
+document.getElementById("a19").value='';
+document.getElementById("b19").value='';
+document.getElementById("c19").value='';
+document.getElementById("d19").value='';
+document.getElementById("e19").value='';
+document.getElementById("f19").value='';
+document.getElementById("g19").value='';
+document.getElementById("h19").value='';
+document.getElementById("i19").value='';
+document.getElementById("j19").value='';
+document.getElementById("k19").value='';
+document.getElementById("l19").value='';
+document.getElementById("m19").value='';
+document.getElementById("a20").value='';
+document.getElementById("b20").value='';
+document.getElementById("c20").value='';
+document.getElementById("d20").value='';
+document.getElementById("e20").value='';
+document.getElementById("f20").value='';
+document.getElementById("g20").value='';
+document.getElementById("h20").value='';
+document.getElementById("i20").value='';
+document.getElementById("j20").value='';
+document.getElementById("k20").value='';
+document.getElementById("l20").value='';
+document.getElementById("m20").value='';
+
+$("#clipping_date_id").val("");
+$("#clipping_supervisor_id").val('Komaza ID');
+$("#clipping_batch_id").val('');
+//alert('Data sent Successfully'); 
+$( "#clipping_date_id" ).datepicker("show");
+} 
+//**************************************************************clear placing
+function clearPlacing(){
+document.getElementById("ap1").value='';
+document.getElementById("bp1").value='';
+document.getElementById("cp1").value='';
+document.getElementById("dp1").value='';
+document.getElementById("ep1").value='';
+document.getElementById("fp1").value='';
+document.getElementById("gp1").value='';
+
+document.getElementById("ap2").value='';
+document.getElementById("bp2").value='';
+document.getElementById("cp2").value='';
+document.getElementById("dp2").value='';
+document.getElementById("ep2").value='';
+document.getElementById("fp2").value='';
+document.getElementById("gp2").value='';
+
+document.getElementById("ap3").value='';
+document.getElementById("bp3").value='';
+document.getElementById("cp3").value='';
+document.getElementById("dp3").value='';
+document.getElementById("ep3").value='';
+document.getElementById("fp3").value='';
+document.getElementById("gp3").value='';
+
+document.getElementById("ap4").value='';
+document.getElementById("bp4").value='';
+document.getElementById("cp4").value='';
+document.getElementById("dp4").value='';
+document.getElementById("ep4").value='';
+document.getElementById("fp4").value='';
+document.getElementById("gp4").value='';
+
+document.getElementById("ap5").value='';
+document.getElementById("bp5").value='';
+document.getElementById("cp5").value='';
+document.getElementById("dp5").value='';
+document.getElementById("ep5").value='';
+document.getElementById("fp5").value='';
+document.getElementById("gp5").value='';
+
+document.getElementById("ap6").value='';
+document.getElementById("bp6").value='';
+document.getElementById("cp6").value='';
+document.getElementById("dp6").value='';
+document.getElementById("ep6").value='';
+document.getElementById("fp6").value='';
+document.getElementById("gp6").value='';
+
+document.getElementById("ap7").value='';
+document.getElementById("bp7").value='';
+document.getElementById("cp7").value='';
+document.getElementById("dp7").value='';
+document.getElementById("ep7").value='';
+document.getElementById("fp7").value='';
+document.getElementById("gp7").value='';
+
+document.getElementById("ap8").value='';
+document.getElementById("bp8").value='';
+document.getElementById("cp8").value='';
+document.getElementById("dp8").value='';
+document.getElementById("ep8").value='';
+document.getElementById("fp8").value='';
+document.getElementById("gp8").value='';
+
+document.getElementById("ap9").value='';
+document.getElementById("bp9").value='';
+document.getElementById("cp9").value='';
+document.getElementById("dp9").value='';
+document.getElementById("ep9").value='';
+document.getElementById("fp9").value='';
+document.getElementById("gp9").value='';
+
+document.getElementById("ap10").value='';
+document.getElementById("bp10").value='';
+document.getElementById("cp10").value='';
+document.getElementById("dp10").value='';
+document.getElementById("ep10").value='';
+document.getElementById("fp10").value='';
+document.getElementById("gp10").value='';
+
+document.getElementById("ap11").value='';
+document.getElementById("bp11").value='';
+document.getElementById("cp11").value='';
+document.getElementById("dp11").value='';
+document.getElementById("ep11").value='';
+document.getElementById("fp11").value='';
+document.getElementById("gp11").value='';
+
+document.getElementById("ap12").value='';
+document.getElementById("bp12").value='';
+document.getElementById("cp12").value='';
+document.getElementById("dp12").value='';
+document.getElementById("ep12").value='';
+document.getElementById("fp12").value='';
+document.getElementById("gp12").value='';
+
+document.getElementById("ap13").value='';
+document.getElementById("bp13").value='';
+document.getElementById("cp13").value='';
+document.getElementById("dp13").value='';
+document.getElementById("ep13").value='';
+document.getElementById("fp13").value='';
+document.getElementById("gp13").value='';
+
+document.getElementById("ap14").value='';
+document.getElementById("bp14").value='';
+document.getElementById("cp14").value='';
+document.getElementById("dp14").value='';
+document.getElementById("ep14").value='';
+document.getElementById("fp14").value='';
+document.getElementById("gp14").value='';
+
+document.getElementById("ap15").value='';
+document.getElementById("bp15").value='';
+document.getElementById("cp15").value='';
+document.getElementById("dp15").value='';
+document.getElementById("ep15").value='';
+document.getElementById("fp15").value='';
+document.getElementById("gp15").value='';
+
+document.getElementById("ap16").value='';
+document.getElementById("bp16").value='';
+document.getElementById("cp16").value='';
+document.getElementById("dp16").value='';
+document.getElementById("ep16").value='';
+document.getElementById("fp16").value='';
+document.getElementById("gp16").value='';
+
+document.getElementById("ap17").value='';
+document.getElementById("bp17").value='';
+document.getElementById("cp17").value='';
+document.getElementById("dp17").value='';
+document.getElementById("ep17").value='';
+document.getElementById("fp17").value='';
+document.getElementById("gp17").value='';
+
+document.getElementById("ap18").value='';
+document.getElementById("bp18").value='';
+document.getElementById("cp18").value='';
+document.getElementById("dp18").value='';
+document.getElementById("ep18").value='';
+document.getElementById("fp18").value='';
+document.getElementById("gp18").value='';
+
+document.getElementById("ap19").value='';
+document.getElementById("bp19").value='';
+document.getElementById("cp19").value='';
+document.getElementById("dp19").value='';
+document.getElementById("ep19").value='';
+document.getElementById("fp19").value='';
+document.getElementById("gp19").value='';
+
+document.getElementById("ap20").value='';
+document.getElementById("bp20").value='';
+document.getElementById("cp20").value='';
+document.getElementById("dp20").value='';
+document.getElementById("ep20").value='';
+document.getElementById("fp20").value='';
+document.getElementById("gp20").value='';
+
+
+$("#placing_date_id").val("");
+$("#placing_supervisor_id").val('Komaza ID');
+$("#placing_batch_id").val('');
+//alert('Data sent Successfully'); 
+$( "#placing_date_id" ).datepicker("show");
+$("#placing_name_id").val('-----------------');
+$("#placers_id").val("");
+} 
+
+//**************************************************************clear sorting
+function clearSorting(){
+document.getElementById("as1").value='';
+document.getElementById("bs1").value='';
+document.getElementById("cs1").value='';
+document.getElementById("ds1").value='';
+document.getElementById("es1").value='';
+document.getElementById("fs1").value='';
+document.getElementById("gs1").value='';
+document.getElementById("as2").value='';
+document.getElementById("bs2").value='';
+document.getElementById("cs2").value='';
+document.getElementById("ds2").value='';
+document.getElementById("es2").value='';
+document.getElementById("fs2").value='';
+document.getElementById("gs2").value='';
+
+document.getElementById("as3").value='';
+document.getElementById("bs3").value='';
+document.getElementById("cs3").value='';
+document.getElementById("ds3").value='';
+document.getElementById("es3").value='';
+document.getElementById("fs3").value='';
+document.getElementById("gs3").value='';
+
+document.getElementById("as4").value='';
+document.getElementById("bs4").value='';
+document.getElementById("cs4").value='';
+document.getElementById("ds4").value='';
+document.getElementById("es4").value='';
+document.getElementById("fs4").value='';
+document.getElementById("gs4").value='';
+
+document.getElementById("as5").value='';
+document.getElementById("bs5").value='';
+document.getElementById("cs5").value='';
+document.getElementById("ds5").value='';
+document.getElementById("es5").value='';
+document.getElementById("fs5").value='';
+document.getElementById("gs5").value='';
+
+document.getElementById("as6").value='';
+document.getElementById("bs6").value='';
+document.getElementById("cs6").value='';
+document.getElementById("ds6").value='';
+document.getElementById("es6").value='';
+document.getElementById("fs6").value='';
+document.getElementById("gs6").value='';
+
+document.getElementById("as7").value='';
+document.getElementById("bs7").value='';
+document.getElementById("cs7").value='';
+document.getElementById("ds7").value='';
+document.getElementById("es7").value='';
+document.getElementById("fs7").value='';
+document.getElementById("gs7").value='';
+
+document.getElementById("as8").value='';
+document.getElementById("bs8").value='';
+document.getElementById("cs8").value='';
+document.getElementById("ds8").value='';
+document.getElementById("es8").value='';
+document.getElementById("fs8").value='';
+document.getElementById("gs8").value='';
+
+document.getElementById("as9").value='';
+document.getElementById("bs9").value='';
+document.getElementById("cs9").value='';
+document.getElementById("ds9").value='';
+document.getElementById("es9").value='';
+document.getElementById("fs9").value='';
+document.getElementById("gs9").value='';
+
+document.getElementById("as10").value='';
+document.getElementById("bs10").value='';
+document.getElementById("cs10").value='';
+document.getElementById("ds10").value='';
+document.getElementById("es10").value='';
+document.getElementById("fs10").value='';
+document.getElementById("gs10").value='';
+
+document.getElementById("as11").value='';
+document.getElementById("bs11").value='';
+document.getElementById("cs11").value='';
+document.getElementById("ds11").value='';
+document.getElementById("es11").value='';
+document.getElementById("fs11").value='';
+document.getElementById("gs11").value='';
+
+document.getElementById("as12").value='';
+document.getElementById("bs12").value='';
+document.getElementById("cs12").value='';
+document.getElementById("ds12").value='';
+document.getElementById("es12").value='';
+document.getElementById("fs12").value='';
+document.getElementById("gs12").value='';
+
+document.getElementById("as13").value='';
+document.getElementById("bs13").value='';
+document.getElementById("cs13").value='';
+document.getElementById("ds13").value='';
+document.getElementById("es13").value='';
+document.getElementById("fs13").value='';
+document.getElementById("gs13").value='';
+
+document.getElementById("as14").value='';
+document.getElementById("bs14").value='';
+document.getElementById("cs14").value='';
+document.getElementById("ds14").value='';
+document.getElementById("es14").value='';
+document.getElementById("fs14").value='';
+document.getElementById("gs14").value='';
+
+document.getElementById("as15").value='';
+document.getElementById("bs15").value='';
+document.getElementById("cs15").value='';
+document.getElementById("ds15").value='';
+document.getElementById("es15").value='';
+document.getElementById("fs15").value='';
+document.getElementById("gs15").value='';
+
+document.getElementById("as16").value='';
+document.getElementById("bs16").value='';
+document.getElementById("cs16").value='';
+document.getElementById("ds16").value='';
+document.getElementById("es16").value='';
+document.getElementById("fs16").value='';
+document.getElementById("gs16").value='';
+
+document.getElementById("as17").value='';
+document.getElementById("bs17").value='';
+document.getElementById("cs17").value='';
+document.getElementById("ds17").value='';
+document.getElementById("es17").value='';
+document.getElementById("fs17").value='';
+document.getElementById("gs17").value='';
+
+document.getElementById("as18").value='';
+document.getElementById("bs18").value='';
+document.getElementById("cs18").value='';
+document.getElementById("ds18").value='';
+document.getElementById("es18").value='';
+document.getElementById("fs18").value='';
+document.getElementById("gs18").value='';
+
+document.getElementById("as19").value='';
+document.getElementById("bs19").value='';
+document.getElementById("cs19").value='';
+document.getElementById("ds19").value='';
+document.getElementById("es19").value='';
+document.getElementById("fs19").value='';
+document.getElementById("gs19").value='';
+
+document.getElementById("as20").value='';
+document.getElementById("bs20").value='';
+document.getElementById("cs20").value='';
+document.getElementById("ds20").value='';
+document.getElementById("es20").value='';
+document.getElementById("fs20").value='';
+document.getElementById("gs20").value='';
+
+
+$("#sorting_date_id").val("");
+$("#sorting_supervisor_id").val('Komaza ID');
+$("#sorting_batch_id").val('');
+//alert('Data sent Successfully'); 
+$( "#sorting_date_id" ).datepicker("show");
+$("#sorting_name_id").val('-----------------');
+$("#sorters_id").val("");
+} 
+
+//**************************************************************clear cleaning
+function clearCleaning(){
+document.getElementById("ak1").value='';
+document.getElementById("bk1").value='';
+document.getElementById("ck1").value='';
+document.getElementById("dk1").value='';
+document.getElementById("ek1").value='';
+document.getElementById("fk1").value='';
+document.getElementById("gk1").value='';
+
+document.getElementById("ak2").value='';
+document.getElementById("bk2").value='';
+document.getElementById("ck2").value='';
+document.getElementById("dk2").value='';
+document.getElementById("ek2").value='';
+document.getElementById("fk2").value='';
+document.getElementById("gk2").value='';
+
+document.getElementById("ak3").value='';
+document.getElementById("bk3").value='';
+document.getElementById("ck3").value='';
+document.getElementById("dk3").value='';
+document.getElementById("ek3").value='';
+document.getElementById("fk3").value='';
+document.getElementById("gk3").value='';
+
+document.getElementById("ak4").value='';
+document.getElementById("bk4").value='';
+document.getElementById("ck4").value='';
+document.getElementById("dk4").value='';
+document.getElementById("ek4").value='';
+document.getElementById("fk4").value='';
+document.getElementById("gk4").value='';
+
+document.getElementById("ak5").value='';
+document.getElementById("bk5").value='';
+document.getElementById("ck5").value='';
+document.getElementById("dk5").value='';
+document.getElementById("ek5").value='';
+document.getElementById("fk5").value='';
+document.getElementById("gk5").value='';
+
+document.getElementById("ak6").value='';
+document.getElementById("bk6").value='';
+document.getElementById("ck6").value='';
+document.getElementById("dk6").value='';
+document.getElementById("ek6").value='';
+document.getElementById("fk6").value='';
+document.getElementById("gk6").value='';
+
+document.getElementById("ak7").value='';
+document.getElementById("bk7").value='';
+document.getElementById("ck7").value='';
+document.getElementById("dk7").value='';
+document.getElementById("ek7").value='';
+document.getElementById("fk7").value='';
+document.getElementById("gk7").value='';
+
+document.getElementById("ak8").value='';
+document.getElementById("bk8").value='';
+document.getElementById("ck8").value='';
+document.getElementById("dk8").value='';
+document.getElementById("ek8").value='';
+document.getElementById("fk8").value='';
+document.getElementById("gk8").value='';
+
+document.getElementById("ak9").value='';
+document.getElementById("bk9").value='';
+document.getElementById("ck9").value='';
+document.getElementById("dk9").value='';
+document.getElementById("ek9").value='';
+document.getElementById("fk9").value='';
+document.getElementById("gk9").value='';
+
+document.getElementById("ak10").value='';
+document.getElementById("bk10").value='';
+document.getElementById("ck10").value='';
+document.getElementById("dk10").value='';
+document.getElementById("ek10").value='';
+document.getElementById("fk10").value='';
+document.getElementById("gk10").value='';
+
+document.getElementById("ak11").value='';
+document.getElementById("bk11").value='';
+document.getElementById("ck11").value='';
+document.getElementById("dk11").value='';
+document.getElementById("ek11").value='';
+document.getElementById("fk11").value='';
+document.getElementById("gk11").value='';
+
+document.getElementById("ak12").value='';
+document.getElementById("bk12").value='';
+document.getElementById("ck12").value='';
+document.getElementById("dk12").value='';
+document.getElementById("ek12").value='';
+document.getElementById("fk12").value='';
+document.getElementById("gk12").value='';
+
+document.getElementById("ak13").value='';
+document.getElementById("bk13").value='';
+document.getElementById("ck13").value='';
+document.getElementById("dk13").value='';
+document.getElementById("ek13").value='';
+document.getElementById("fk13").value='';
+document.getElementById("gk13").value='';
+
+document.getElementById("ak14").value='';
+document.getElementById("bk14").value='';
+document.getElementById("ck14").value='';
+document.getElementById("dk14").value='';
+document.getElementById("ek14").value='';
+document.getElementById("fk14").value='';
+document.getElementById("gk14").value='';
+
+document.getElementById("ak15").value='';
+document.getElementById("bk15").value='';
+document.getElementById("ck15").value='';
+document.getElementById("dk15").value='';
+document.getElementById("ek15").value='';
+document.getElementById("fk15").value='';
+document.getElementById("gk15").value='';
+
+document.getElementById("ak16").value='';
+document.getElementById("bk16").value='';
+document.getElementById("ck16").value='';
+document.getElementById("dk16").value='';
+document.getElementById("ek16").value='';
+document.getElementById("fk16").value='';
+document.getElementById("gk16").value='';
+
+document.getElementById("ak17").value='';
+document.getElementById("bk17").value='';
+document.getElementById("ck17").value='';
+document.getElementById("dk17").value='';
+document.getElementById("ek17").value='';
+document.getElementById("fk17").value='';
+document.getElementById("gk17").value='';
+
+document.getElementById("ak18").value='';
+document.getElementById("bk18").value='';
+document.getElementById("ck18").value='';
+document.getElementById("dk18").value='';
+document.getElementById("ek18").value='';
+document.getElementById("fk18").value='';
+document.getElementById("gk18").value='';
+
+document.getElementById("ak19").value='';
+document.getElementById("bk19").value='';
+document.getElementById("ck19").value='';
+document.getElementById("dk19").value='';
+document.getElementById("ek19").value='';
+document.getElementById("fk19").value='';
+document.getElementById("gk19").value='';
+
+document.getElementById("ak20").value='';
+document.getElementById("bk20").value='';
+document.getElementById("ck20").value='';
+document.getElementById("dk20").value='';
+document.getElementById("ek20").value='';
+document.getElementById("fk20").value='';
+document.getElementById("gk20").value='';
+
+
+$("#cleaning_date_id").val("");
+$("#cleaning_supervisor_id").val('Komaza ID');
+$("#cleaning_batch_id").val('');
+//alert('Data sent Successfully'); 
+$( "#cleaning_date_id" ).datepicker("show");
+$("#cleaning_name_id").val('-----------------');
+$("#cleaners_id").val("");
+} 
+
+//**************************************************************clear stock
+function clearStock(){
+document.getElementById("az1").value='';
+document.getElementById("bz1").value='';
+document.getElementById("cz1").value='';
+document.getElementById("dz1").value='';
+document.getElementById("ez1").value='';
+document.getElementById("fz1").value='';
+document.getElementById("gz1").value='';
+
+document.getElementById("az2").value='';
+document.getElementById("bz2").value='';
+document.getElementById("cz2").value='';
+document.getElementById("dz2").value='';
+document.getElementById("ez2").value='';
+document.getElementById("fz2").value='';
+document.getElementById("gz2").value='';
+
+document.getElementById("az3").value='';
+document.getElementById("bz3").value='';
+document.getElementById("cz3").value='';
+document.getElementById("dz3").value='';
+document.getElementById("ez3").value='';
+document.getElementById("fz3").value='';
+document.getElementById("gz3").value='';
+
+document.getElementById("az4").value='';
+document.getElementById("bz4").value='';
+document.getElementById("cz4").value='';
+document.getElementById("dz4").value='';
+document.getElementById("ez4").value='';
+document.getElementById("fz4").value='';
+document.getElementById("gz4").value='';
+
+document.getElementById("az5").value='';
+document.getElementById("bz5").value='';
+document.getElementById("cz5").value='';
+document.getElementById("dz5").value='';
+document.getElementById("ez5").value='';
+document.getElementById("fz5").value='';
+document.getElementById("gz5").value='';
+
+document.getElementById("az6").value='';
+document.getElementById("bz6").value='';
+document.getElementById("cz6").value='';
+document.getElementById("dz6").value='';
+document.getElementById("ez6").value='';
+document.getElementById("fz6").value='';
+document.getElementById("gz6").value='';
+
+document.getElementById("az7").value='';
+document.getElementById("bz7").value='';
+document.getElementById("cz7").value='';
+document.getElementById("dz7").value='';
+document.getElementById("ez7").value='';
+document.getElementById("fz7").value='';
+document.getElementById("gz7").value='';
+
+document.getElementById("az8").value='';
+document.getElementById("bz8").value='';
+document.getElementById("cz8").value='';
+document.getElementById("dz8").value='';
+document.getElementById("ez8").value='';
+document.getElementById("fz8").value='';
+document.getElementById("gz8").value='';
+
+document.getElementById("az9").value='';
+document.getElementById("bz9").value='';
+document.getElementById("cz9").value='';
+document.getElementById("dz9").value='';
+document.getElementById("ez9").value='';
+document.getElementById("fz9").value='';
+document.getElementById("gz9").value='';
+
+document.getElementById("az10").value='';
+document.getElementById("bz10").value='';
+document.getElementById("cz10").value='';
+document.getElementById("dz10").value='';
+document.getElementById("ez10").value='';
+document.getElementById("fz10").value='';
+document.getElementById("gz10").value='';
+
+document.getElementById("az11").value='';
+document.getElementById("bz11").value='';
+document.getElementById("cz11").value='';
+document.getElementById("dz11").value='';
+document.getElementById("ez11").value='';
+document.getElementById("fz11").value='';
+document.getElementById("gz11").value='';
+
+document.getElementById("az12").value='';
+document.getElementById("bz12").value='';
+document.getElementById("cz12").value='';
+document.getElementById("dz12").value='';
+document.getElementById("ez12").value='';
+document.getElementById("fz12").value='';
+document.getElementById("gz12").value='';
+
+document.getElementById("az13").value='';
+document.getElementById("bz13").value='';
+document.getElementById("cz13").value='';
+document.getElementById("dz13").value='';
+document.getElementById("ez13").value='';
+document.getElementById("fz13").value='';
+document.getElementById("gz13").value='';
+
+document.getElementById("az14").value='';
+document.getElementById("bz14").value='';
+document.getElementById("cz14").value='';
+document.getElementById("dz14").value='';
+document.getElementById("ez14").value='';
+document.getElementById("fz14").value='';
+document.getElementById("gz14").value='';
+
+document.getElementById("az15").value='';
+document.getElementById("bz15").value='';
+document.getElementById("cz15").value='';
+document.getElementById("dz15").value='';
+document.getElementById("ez15").value='';
+document.getElementById("fz15").value='';
+document.getElementById("gz15").value='';
+
+document.getElementById("az16").value='';
+document.getElementById("bz16").value='';
+document.getElementById("cz16").value='';
+document.getElementById("dz16").value='';
+document.getElementById("ez16").value='';
+document.getElementById("fz16").value='';
+document.getElementById("gz16").value='';
+
+document.getElementById("az17").value='';
+document.getElementById("bz17").value='';
+document.getElementById("cz17").value='';
+document.getElementById("dz17").value='';
+document.getElementById("ez17").value='';
+document.getElementById("fz17").value='';
+document.getElementById("gz17").value='';
+
+document.getElementById("az18").value='';
+document.getElementById("bz18").value='';
+document.getElementById("cz18").value='';
+document.getElementById("dz18").value='';
+document.getElementById("ez18").value='';
+document.getElementById("fz18").value='';
+document.getElementById("gz18").value='';
+
+document.getElementById("az19").value='';
+document.getElementById("bz19").value='';
+document.getElementById("cz19").value='';
+document.getElementById("dz19").value='';
+document.getElementById("ez19").value='';
+document.getElementById("fz19").value='';
+document.getElementById("gz19").value='';
+
+document.getElementById("az20").value='';
+document.getElementById("bz20").value='';
+document.getElementById("cz20").value='';
+document.getElementById("dz20").value='';
+document.getElementById("ez20").value='';
+document.getElementById("fz20").value='';
+document.getElementById("gz20").value='';
+
+//alert('_____________________'); 
+$("#stock_date_id").val("");
+$("#stock_supervisor_id").val('Komaza ID');
+$("#stock_batch_id").val('');
+
+$( "#stock_date_id" ).datepicker("show");
+$("#stock_name_id").val('-----------------');
+$("#cleaners1_id").val("");
+} 
+
+ //________________________end of jq 
+ 
+  $("#placing_date_id" ).datepicker("show");
+
+</script>
+
